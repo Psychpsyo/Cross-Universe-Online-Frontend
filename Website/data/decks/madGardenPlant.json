@@ -1,0 +1,73 @@
+{
+	"name": {
+		"en": "Mad Garden Plant",
+		"ja": "マッドガーデン・プラント"
+	},
+	"author": {
+		"en": "Cross Universe",
+		"ja": "クロス・ユニバース"
+	},
+	"description": {
+		"en": "Use the effect of 'Gama, of Forbidden Gold' and 'New Blueprint' to add 'Mad Garden Plant' to your hand. Next, summon tokens and 'Dissolving Clay Doll' and aim for victory.\n\nThe basic moves are:\n① Summoning two tokens with 'Mad Garden Plant'.\n② Summoning 'Dissolving Clay Doll' and casting 'Gaia's Blessing'.\n③ Casting 'Artificial Sun' to increase your Attack power.",
+		"ja": "《禁忌の錬金釜》の効果や《新たな図面》を使い、《マッドガーデン・プラント》を手札に加える。その後、トークンや《自壊する泥人形》を召喚し、勝利を目指す\n\n基本ムーブは、\n①《マッドガーデン・プラント》より、トークンを2体召喚\n②《自壊する泥人形》を召喚し、《大地の恵み》を詠唱\n③《人造太陽》を詠唱し、打点をアップさせる"
+	},
+	"suggestedPartner": "U00086",
+	"cards": [
+		{
+			"id": "U00086",
+			"amount": 1
+		},
+		{
+			"id": "U00138",
+			"amount": 3
+		},
+		{
+			"id": "S00033",
+			"amount": 3
+		},
+		{
+			"id": "S00007",
+			"amount": 3
+		},
+		{
+			"id": "S00015",
+			"amount": 2
+		},
+		{
+			"id": "S00100",
+			"amount": 1
+		},
+		{
+			"id": "I00004",
+			"amount": 3
+		},
+		{
+			"id": "I00003",
+			"amount": 3
+		},
+		{
+			"id": "I00034",
+			"amount": 2
+		},
+		{
+			"id": "I00005",
+			"amount": 2
+		},
+		{
+			"id": "I00010",
+			"amount": 2
+		},
+		{
+			"id": "I00015",
+			"amount": 2
+		},
+		{
+			"id": "I00013",
+			"amount": 2
+		},
+		{
+			"id": "I00001",
+			"amount": 1
+		}
+	]
+}

@@ -1,0 +1,61 @@
+{
+	"name": {
+		"en": "Spirit Beat",
+		"ja": "スピリットビート"
+	},
+	"author": {
+		"en": "Cross Universe",
+		"ja": "クロス・ユニバース"
+	},
+	"description": {
+		"en": "A 'Baton Touch' deck with 'Tornado Spirit' as the partner.\nThe basic idea is to enchant 'Tornado Spirit' as your partner with 'Tailwind' and then use 'Baton Touch' to switch to 'Samurai Swallow' in the second half.\n'Card Seal' can be used multiple times through the effect of 'Large Eerie Flapper'.",
+		"ja": "《トルネード・スピリット》をパートナーにした、パートナービートデッキの亜種である。\n基本ムーブは、パートナーの《トルネード・スピリット》に《追い風》を付与し、後半に《バトンタッチ》を詠唱し《侍ツバメ》に切り替える\n《カードの封印》は、《羽ばたく大怪鳥》で戻すことで再利用が可能となっている。"
+	},
+	"suggestedPartner": "U00043",
+	"cards": [
+		{
+			"id": "U00043",
+			"amount": 3
+		},
+		{
+			"id": "U00041",
+			"amount": 3
+		},
+		{
+			"id": "U00076",
+			"amount": 3
+		},
+		{
+			"id": "S00009",
+			"amount": 2
+		},
+		{
+			"id": "S00029",
+			"amount": 2
+		},
+		{
+			"id": "S00032",
+			"amount": 3
+		},
+		{
+			"id": "S00051",
+			"amount": 3
+		},
+		{
+			"id": "S00057",
+			"amount": 2
+		},
+		{
+			"id": "S00088",
+			"amount": 3
+		},
+		{
+			"id": "S00126",
+			"amount": 3
+		},
+		{
+			"id": "S00014",
+			"amount": 3
+		}
+	]
+}

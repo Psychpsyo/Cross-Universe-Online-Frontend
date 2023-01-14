@@ -1,0 +1,61 @@
+{
+	"name": {
+		"en": "Alchemy",
+		"ja": "重合錬成特化型"
+	},
+	"author": {
+		"en": "Cross Universe",
+		"ja": "クロス・ユニバース"
+	},
+	"description": {
+		"en": "Using draw sources, this deck summons powerful tokens with 'Alchemic Polymerization'.\nThe basic moves are:\n① Summoning 'Dissolving Clay Doll' and 'Terminal Berseker'.\n② When your opponent attacks, use 'Alchemic Polymerization' to evade the attack/counterattack.\n③ Enchant your summoned token or Ralt with Tailwind and attack.",
+		"ja": "ドローソースを使いつつ、《重合錬成》を使い強力なトークンを召喚するデッキ。\n基本ムーブは、\n①《自壊する泥人形》《捨て身の狂戦士》を召喚\n②相手が攻撃してきたら、《重合錬成》を使い、攻撃を空かすor反撃\n③トークンやラルトに追い風などを付けて攻撃"
+	},
+	"suggestedPartner": "U00004",
+	"cards": [
+		{
+			"id": "U00004",
+			"amount": 1
+		},
+		{
+			"id": "U00138",
+			"amount": 3
+		},
+		{
+			"id": "U00058",
+			"amount": 3
+		},
+		{
+			"id": "U00063",
+			"amount": 3
+		},
+		{
+			"id": "U00060",
+			"amount": 3
+		},
+		{
+			"id": "U00077",
+			"amount": 3
+		},
+		{
+			"id": "S00034",
+			"amount": 3
+		},
+		{
+			"id": "S00051",
+			"amount": 3
+		},
+		{
+			"id": "S00087",
+			"amount": 3
+		},
+		{
+			"id": "S00127",
+			"amount": 3
+		},
+		{
+			"id": "I00068",
+			"amount": 2
+		}
+	]
+}

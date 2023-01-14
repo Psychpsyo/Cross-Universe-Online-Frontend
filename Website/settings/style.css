@@ -1,0 +1,55 @@
+header {
+	text-align: center;
+	height: 1.75em;
+	border-bottom: 2px #eee solid;
+	line-height: 1.75em;
+	position: sticky;
+	top: 0;
+	background-color: #333;
+	z-index: 100;
+}
+
+h2 {
+	width: 100%;
+	margin: .2em;
+	text-align: center;
+}
+
+.settingsBlock {
+	width: 30em;
+	margin: auto;
+	text-align: center;
+}
+
+.settingsBlock > div:nth-child(even) {
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.settingsBlock > div {
+	position: relative;
+	padding: .1em .4em;
+	text-align: left;
+}
+
+input[type="text"], select, .keybind {
+	position: absolute;
+	right: .4em;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.keybind {
+	width: 10em;
+	color: black;
+}
+
+#languageWarnings {
+	position: absolute;
+	top: 100%;
+	font-size: .6em;
+	text-decoration: none;
+}
+
+.invalidHotkey {
+	color: red;
+}

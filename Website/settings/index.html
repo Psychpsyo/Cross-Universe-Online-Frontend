@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<base href="../">
+		
+		<title>Cross Universe Online Settings Page</title>
+		<meta name="description" content="Play Cross Universe online against others!">
+		<meta name="keywords" content="Cross Universe, Card Game, Crunis, クロス・ユニバース, クロユニ, card game, カードゲーム">
+		
+		<link rel="icon" type="image/png" href="images/favicon.png">
+		
+		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="settings/style.css">
+	</head>
+	<body>
+		<header id="title">Settings</header>
+		
+		<h2 id="generalHeading">General</h2>
+		<div class="settingsBlock">
+			<div id="languageSelectorDiv" data-warning-count="0">
+				<label for="languageSelect" id="languageSelectorLabel">Language:</label>
+				<select id="languageSelect" autocomplete="off">
+					<option value="en">🇺🇸 English</option>
+					<option value="de">🇩🇪 Deutsch</option>
+					<option value="ja">🇯🇵 日本語</option>
+				</select>
+				<div id="languageWarnings"></div>
+			</div>
+			<div><input type="checkbox" id="partnerChoiceToggle"> <label for="partnerChoiceToggle" id="partnerChoiceLabel">Always give Partner Choice</label></div>
+			<div><input type="checkbox" id="closePreviewToggle"> <label for="closePreviewToggle" id="closePreviewToggleLabel">Close Card Preview When Clicking off of It</label></div>
+		</div>
+		<hr>
+		
+		<h2 id="profileHeading">Profile</h2>
+		<div class="settingsBlock">
+			<div><label for="usernameInput" id="usernameLabel">Your Username:</label><input type="text" id="usernameInput" placeholder="No username set."></div>
+			<div><label for="customCardBack" id="cardBackLabel">Custom Card Back Link:</label><input type="text" id="customCardBack" placeholder="No card back set."></div>
+		</div>
+		<hr>
+		
+		<h2 id="preferencesHeading">Preferences</h2>
+		<div class="settingsBlock">
+			<div><input type="checkbox" id="fieldLabelToggle"> <label for="fieldLabelToggle" id="fieldLabelToggleLabel">Show Field Labels</label></div>
+			<div><input type="checkbox" id="cardBackToggle"> <label for="cardBackToggle" id="cardBackToggleLabel">Disable Opponent Card Backs</label></div>
+		</div>
+		<hr>
+		
+		<h2 id="hotkeysHeading">Hotkeys</h2>
+		<div class="settingsBlock">
+			<div><label for="hotkeyShowYourDiscard" id="hotkeyShowYourDiscardLabel">Show Your Discard Pile:</label><button id="hotkeyShowYourDiscard" class="keybind">---</button></div>
+			<div><label for="hotkeyShowOpponentDiscard" id="hotkeyShowOpponentDiscardLabel">Show Opponent Discard Pile:</label><button id="hotkeyShowOpponentDiscard" class="keybind">---</button></div>
+			<div><label for="hotkeyShowYourExile" id="hotkeyShowYourExileLabel">Show Your Exile Zone:</label><button id="hotkeyShowYourExile" class="keybind">---</button></div>
+			<div><label for="hotkeyShowOpponentExile" id="hotkeyShowOpponentExileLabel">Show Opponent Exile Zone:</label><button id="hotkeyShowOpponentExile" class="keybind">---</button></div>
+			<div><label for="hotkeyShowDeck" id="hotkeyShowDeckLabel">Search Your Deck:</label><button id="hotkeyShowDeck" class="keybind">---</button></div>
+			<div><label for="hotkeySelectToken" id="hotkeySelectTokenLabel">Open Token Selector:</label><button id="hotkeySelectToken" class="keybind">---</button></div>
+			<div><label for="hotkeyShowField" id="hotkeyShowFieldLabel">Show Field:</label><button id="hotkeyShowField" class="keybind">---</button></div>
+			<div><label for="hotkeyDestroyToken" id="hotkeyDestroyTokenLabel">Destroy Grabbed Token:</label><button id="hotkeyDestroyToken" class="keybind">---</button></div>
+			<div><label for="hotkeyChat" id="hotkeyChatLabel">Write Chat Message:</label><button id="hotkeyChat" class="keybind">---</button></div>
+			<div><label for="hotkeyDrawCard" id="hotkeyDrawCardLabel">Draw Card:</label><button id="hotkeyDrawCard" class="keybind">---</button></div>
+			<div><label for="hotkeyShuffleDeck" id="hotkeyShuffleDeckLabel">Shuffle Deck:</label><button id="hotkeyShuffleDeck" class="keybind">---</button></div>
+			<div><label for="hotkeyShowDeckTop" id="hotkeyShowDeckTopLabel">View Top Card of Deck:</label><button id="hotkeyShowDeckTop" class="keybind">---</button></div>
+			<!--Fake button, number keys will always be hand cards -->
+			<div><label for="hotkeyPreviewHand" id="hotkeyPreviewHandLabel">Preview Hand Cards:</label><button id="hotkeyPreviewHand" class="keybind" disabled>1 - 9</button></div>
+			<button id="resetDefaultHotkeys">Reset Hotkeys</button>
+		</div><br>
+		
+		<template id="langWarning">
+			<span class="warningNote"><b>ⓘ</b> <span class="warningText"></span></span>
+		</template>
+		<template id="langWarningLink">
+			<a class="warningNote" href="https://github.com/Psychpsyo/Cross-Universe-Online-translations" target="_blank"><b>ⓘ</b> <span class="warningText"></span></a>
+		</template>
+		
+		<script src="scripts/localStorageSetup.js"></script>
+		<script src="settings/script.js"></script>
+	</body>
+</html>

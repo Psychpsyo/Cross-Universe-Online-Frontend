@@ -1,0 +1,339 @@
+html {
+	overflow: hidden;
+}
+
+#deckMakerHeader {
+	text-align: center;
+	height: 1.75em;
+	border-bottom: 2px #eee solid;
+	line-height: 1.75em;
+}
+
+#deckMakerPanels {
+	display: flex;
+	justify-content: space-between;
+	height: 95vh;
+}
+
+#deckMakerPanels > div {
+	flex-basis: 33%;
+	overflow-y: scroll;
+	padding-top: .5em;
+}
+
+.deckMakerGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.cardList > * {
+	width: 95%;
+	margin: .3em .15em;
+	aspect-ratio: 813 / 1185;
+}
+
+.deckMakerHeader {
+	text-align: center;
+}
+
+#cardSearchPanel, #cardInfoMainArea {
+	padding: 1em;
+}
+
+.overlayBox {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	
+	background-color: #000c;
+	border: 2px #eee solid;
+	border-radius: 1em;
+}
+
+.deckMakerTopButton {
+	height: 100%;
+	padding: 0 1em;
+	border: none;
+	color: #eee;
+	font-size: 1em;
+	background: none;
+}
+
+#deckMakerSearchButton {
+	float: right;
+	border-left: 2px solid #eee;
+}
+
+#deckMakerDeckButton {
+	float: left;
+	border-right: 2px solid #eee;
+}
+
+.deckMakerTopButton:hover {
+	background-color: #fff3;
+}
+
+#deckMakerOverlayBlocker {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+.overlayBox header {
+	border-bottom: 2px solid #eee;
+	padding: .3em .5em;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.optionListingItem {
+	display: flex;
+	padding: .1em;
+}
+
+.optionListingItem > :first-child {
+	margin-right: 1em;
+	width: 6em;
+	flex-shrink: 0;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.optionListingItem > :last-child {
+	flex-grow: 1;
+}
+
+/*card search panel*/
+.cardSearchMinus {
+	padding: 0 1em;
+}
+
+#cardSearchTypeInput {
+	width: 100%;
+}
+
+/*card info panel*/
+#cardInfoPanel, #deckCreationPanel {
+	display: none;
+}
+
+#cardInfoMainArea {
+	overflow-y: scroll;
+	max-height: 80vh;
+}
+
+#cardInfoImgArea {
+	width: max-content;
+	margin: 0 auto;
+	font-size: .5em;
+}
+
+#cardInfoCardImg {
+	height: 65vh;
+}
+
+#cardInfoCardID {
+	float: right;
+	margin-right: 1em;
+}
+
+#cardInfoReleaseDate, #cardInfoIllustrator, #cardInfoIdea {
+	cursor: pointer;
+}
+
+.cardInfoGrid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+#cardInfoToDeck {
+	text-align: center;
+	height: 5vh;
+	border-top: 2px #eee solid;
+	line-height: 5vh;
+	user-select: none;
+}
+
+#cardInfoToDeck:hover {
+	background-color: #fff3;
+}
+
+/*deck maker panel*/
+#deckCreationPanel {
+	width: 75%;
+}
+
+#deckMakerMainArea {
+	display: flex;
+	border-bottom: 2px #eee solid;
+}
+
+#deckMakerMainArea > * {
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+}
+
+#deckMakerMainArea > :not(:first-child) {
+	border-left: 1px #eee solid;
+}
+
+#deckMakerMainArea > :not(:last-child) {
+	border-right: 1px #eee solid;
+}
+
+.deckCreatorScrollArea {
+	flex-grow: 1;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.deckCreatorScrollArea > span {
+	margin-left: .5em;
+}
+
+.warning {
+	color: red;
+}
+.lightWarning {
+	color: orange;
+}
+
+#cardMaxWarning, #tokenWarning {
+	display: none;
+}
+
+#deckCreatorCardList {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+#deckCreatorCardListPlaceholder {
+	pointer-events: none;
+	user-select: none;
+}
+
+.deckMakerCardListElementImg {
+	width: 100%;
+	display: block;
+	border: 2px solid #eee;
+	box-sizing: border-box;
+}
+
+.deckMakerCardListElementBtns {
+	display: flex;
+	height: 1em;
+	border: 2px #eee solid;
+	border-top: none;
+	border-radius: 0 0 .5em .5em;
+}
+
+.deckMakerCardListElementBtns > * {
+	line-height: 1em;
+}
+
+.deckMakerCardListElementBtns > :first-child {
+	flex-basis: 1em;
+	border-right: 2px #eee solid;
+	user-select: none;
+}
+
+.deckMakerCardListElementBtns > :last-child {
+	flex-basis: 1em;
+	border-left: 2px #eee solid;
+	user-select: none;
+}
+
+.deckMakerCardListElementBtns > :first-child:hover, .deckMakerCardListElementBtns > :last-child:hover {
+	background-color: #fff3;
+}
+
+.deckMakerCardListElementBtns > :nth-child(2) {
+	flex-grow: 1;
+}
+
+#deckCreatorDetailsPanel {
+	white-space: nowrap;
+	text-align: left;
+}
+
+#deckCreatorDetailsPanel hr {
+	width: 100%;
+	margin: .1em 0;
+	border: 1px solid #eee;
+}
+
+#deckMakerLevelDistribution {
+	display: flex;
+	justify-content: space-evenly;
+	height: 3em;
+	align-items: flex-end;
+	border-bottom: 1px solid white;
+}
+
+#deckMakerLevelDistributionLabels {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+#deckMakerLevelDistributionLabels > span {
+	width: 6%;
+	text-align: center;
+}
+
+#deckMakerLevelDistribution > div {
+	width: 6%;
+	overflow-y: hidden;
+}
+
+#deckMakerLevelDistribution > div > div {
+	border: 1px solid white;
+	border-bottom: none;
+	box-sizing: border-box;
+	display: none;
+}
+
+/*color the pieces of the bars for card type distribution graph*/
+#deckMakerLevelDistribution > div > :nth-child(1) {
+	background-color: #705C3B;
+}
+
+#deckMakerLevelDistribution > div > :nth-child(2) {
+	background-color: #683C7B;
+}
+
+#deckMakerLevelDistribution > div > :nth-child(3) {
+	background-color: #514E59;
+}
+
+#deckMakerOptionButtons {
+	display: flex;
+	margin: .3em .5em;
+	justify-content: space-evenly;
+}
+
+#recentCardsList {
+	height: 20vh;
+	display: flex;
+	padding: .5em;
+	box-sizing: border-box;
+	gap: .5em;
+	overflow-x: scroll;
+	border-radius: 0 0 1em 1em;
+	
+	/*hide scrollbar*/
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+#recentCardsList ::-webkit-scrollbar {
+	display: none;
+}
+
+#deckMakerImportInput {
+	display: none;
+}

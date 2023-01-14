@@ -1,0 +1,105 @@
+{
+	"name": {
+		"en": "Starter Deck",
+		"ja": "スターターデッキ"
+	},
+	"author": {
+		"en": "Cross Universe",
+		"ja": "クロス・ユニバース"
+	},
+	"description": {
+		"en": "This deck is meant for beginners who are still learning the rules.\nUsing it lets you gain an understanding of the basic concepts of the game.\nIt is recommended for both players to play this deck in the very beginning.",
+		"ja": "これからルールを覚える初心者向けのデッキです。\nこのデッキを使うことで、このゲームの基本となる考え方を学べます。\n最初の内はお互いにこのデッキを使って遊んでみるのがお勧めです。"
+	},
+	"suggestedPartner": "U00031",
+	"cards": [
+		{
+			"id": "U00031",
+			"amount": 1
+		},
+		{
+			"id": "U00032",
+			"amount": 1
+		},
+		{
+			"id": "U00017",
+			"amount": 1
+		},
+		{
+			"id": "U00018",
+			"amount": 1
+		},
+		{
+			"id": "U00034",
+			"amount": 1
+		},
+		{
+			"id": "U00044",
+			"amount": 2
+		},
+		{
+			"id": "U00046",
+			"amount": 1
+		},
+		{
+			"id": "U00047",
+			"amount": 1
+		},
+		{
+			"id": "U00051",
+			"amount": 2
+		},
+		{
+			"id": "U00058",
+			"amount": 1
+		},
+		{
+			"id": "U00059",
+			"amount": 1
+		},
+		{
+			"id": "U00060",
+			"amount": 1
+		},
+		{
+			"id": "U00035",
+			"amount": 1
+		},
+		{
+			"id": "U00070",
+			"amount": 1
+		},
+		{
+			"id": "I00009",
+			"amount": 2
+		},
+		{
+			"id": "S00024",
+			"amount": 2
+		},
+		{
+			"id": "S00029",
+			"amount": 2
+		},
+		{
+			"id": "S00030",
+			"amount": 2
+		},
+		{
+			"id": "S00031",
+			"amount": 2
+		},
+		{
+			"id": "S00048",
+			"amount": 2
+		},
+		{
+			"id": "S00049",
+			"amount": 1
+		},
+		{
+			"id": "S00050",
+			"amount": 1
+		}
+	]
+}

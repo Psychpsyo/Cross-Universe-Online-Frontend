@@ -1,0 +1,77 @@
+#draftGameSetupMenu {
+	display: none;
+	flex-grow: 1;
+	max-width: 70vw;
+}
+
+#draftMainInfo {
+	font-size: 2em;
+	text-align: center;
+	margin: 1rem;
+}
+
+#draftCardSelection {
+	display: flex;
+	aspect-ratio: 8130 / 1185;
+	background-color: #0004;
+}
+
+@keyframes cardEntry {
+	from {
+		transform: translateX(100vw);
+	}
+	
+	to {
+		transform: translateX(0);
+	}
+}
+
+#draftCardSelection img {
+	aspect-ratio: 813 / 1185;
+	padding: .15vw;
+	box-sizing: border-box;
+	animation: cardEntry .2s;
+}
+
+#draftInfoBar {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 1em;
+	font-size: 1.5em;
+	border-bottom: 2px solid #eee;
+}
+
+#draftDeckHolder {
+	display: flex;
+}
+
+.draftDeck {
+	padding: 1em;
+	width: 50%;
+}
+
+.draftDeckTitleBar {
+	display: flex;
+	justify-content: space-between;
+}
+
+.draftDeckList {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	box-sizing: border-box;
+	border: 2px solid #eee;
+	aspect-ratio: 8130 / 3555;
+}
+
+.draftDeckList img {
+	width: 100%;
+	padding: 2%;
+	box-sizing: border-box;
+}
+
+#draftStartButtonHolder {
+	display: none;
+	text-align: center;
+	font-size: 2em;
+}

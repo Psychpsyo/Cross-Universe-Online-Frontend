@@ -1,0 +1,21 @@
+{
+	"default": [
+		"starterDeck",
+		"earthDeck",
+		"waterDeck",
+		"fireDeck",
+		"windDeck",
+		"spiritBeat",
+		"dragonDeck",
+		"alchemy"
+	],
+	"legacy": [
+		"madGardenPlant",
+		"impactOneShot",
+		"haniwaLavaEmperor",
+		"meteus",
+		"suphia",
+		"creationIncarnate",
+		"bahamut"
+	]
+}

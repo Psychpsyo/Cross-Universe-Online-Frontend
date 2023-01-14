@@ -1,0 +1,77 @@
+{
+	"name": {
+		"en": "Creation Incarnate",
+		"ja": "創造化身"
+	},
+	"author": {
+		"en": "Cross Universe",
+		"ja": "クロス・ユニバース"
+	},
+	"description": {
+		"en": "This deck makes full use of retiring to summon large units.\nWith 'Dissolving Clay Doll' as your partner, you can use its effect to destroy opponent units in battle while also retiring your own units.\nBy recovering life through 'Life's Return' and 'Green Maiden', you'll be able to pay for 'Creation Incarnate'.",
+		"ja": "リターンを駆使して、上級ユニットの召喚を狙うデッキ。\nパートナーである《自壊する泥人形》の効果を発動し、相手のユニットを破壊しつつリターンにつなげる。《生命回帰》や《深緑の姫君》でライフを回復できれば《創造化身》の召喚を狙っても良い"
+	},
+	"suggestedPartner": "U00138",
+	"cards": [
+		{
+			"id": "U00138",
+			"amount": 1
+		},
+		{
+			"id": "U00172",
+			"amount": 3
+		},
+		{
+			"id": "U00046",
+			"amount": 1
+		},
+		{
+			"id": "U00030",
+			"amount": 3
+		},
+		{
+			"id": "U00080",
+			"amount": 3
+		},
+		{
+			"id": "U00093",
+			"amount": 1
+		},
+		{
+			"id": "U00017",
+			"amount": 1
+		},
+		{
+			"id": "U00012",
+			"amount": 1
+		},
+		{
+			"id": "U00101",
+			"amount": 1
+		},
+		{
+			"id": "S00097",
+			"amount": 3
+		},
+		{
+			"id": "S00063",
+			"amount": 2
+		},
+		{
+			"id": "S00060",
+			"amount": 2
+		},
+		{
+			"id": "S00044",
+			"amount": 3
+		},
+		{
+			"id": "I00014",
+			"amount": 3
+		},
+		{
+			"id": "I00015",
+			"amount": 2
+		}
+	]
+}

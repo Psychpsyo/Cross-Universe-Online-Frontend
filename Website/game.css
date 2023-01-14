@@ -1,0 +1,847 @@
+html {
+	--faded-background: #000B;
+}
+
+body {
+	overflow: hidden;
+}
+
+#gameDiv {
+	display: none;
+}
+
+#gameFlexBox {
+	display: flex;
+}
+
+#mainGameArea {
+	display: none;
+	position: relative;
+	flex-grow: 1;
+}
+
+#fieldHolder {
+	display: flex;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+}
+
+#field {
+	position: relative;
+	width: 100%;
+	height: 70vh;
+	font-size: 2.5vh;
+	
+	background-image: url("images/fieldUnlabeled.jpg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	user-select: none;
+}
+
+#cardDetails {
+	height: 65vh;
+	aspect-ratio: 813 / 1185;
+	
+	position: absolute;
+	top: 50%;
+	right: -50vh;
+	transform: translateY(-50%);
+	transition: right 0.3s ease-out;
+	
+	z-index: 500;
+}
+
+#cardDetailsControl {
+	position: absolute;
+	top: -2em;
+	right: 0;
+	height: 2em;
+	width: 5em;
+	
+	display: flex;
+	align-items: center;
+	
+	background-color: var(--faded-background);
+	box-sizing: border-box;
+	border: 2px #eee solid;
+	border-bottom: none;
+	border-radius: 1em 1em 0px 0px;
+}
+
+#cardDetailsControl > div {
+	width: 50%;
+	text-align: center;
+	line-height: 2em;
+	user-select: none;
+}
+
+#cardDetailsControl > div:first-child {
+	border-right: 1px #eee solid;
+	border-top-left-radius: 1em;
+}
+
+#cardDetailsControl > div:last-child {
+	border-left: 1px #eee solid;
+	border-top-right-radius: 1em;
+}
+
+#cardDetailsControl > div:first-child:hover {
+	background-color: #fff3;
+}
+#cardDetailsControl > div:last-child:hover {
+	background-color: #f003;
+}
+
+#cardDetailsControl > div {
+	border-left
+}
+
+#cardDetailsText {
+	height: 100%;
+	
+	background-color: var(--faded-background);
+	box-sizing: border-box;
+	border: 2px #eee solid;
+	border-radius: 1em 0 1em 1em;
+	
+	overflow-y: auto;
+}
+
+#cardDetailsName, #cardDetailsInfo, .cardDetailsEffect {
+	border-bottom: 2px #eee solid;
+	padding: .25em .5em;
+}
+
+#cardDetailsAttackDefense {
+	display: flex;
+}
+
+#cardDetailsAttackDefense > span {
+	flex-grow: 1;
+}
+
+#cardDetailsEffectList > :last-child {
+	border-bottom: none;
+}
+
+.cardDetailsIndent {
+	text-indent: calc(0px - var(--indent-amount));
+	margin-left: var(--indent-amount);
+}
+
+#cardDetailsImage {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: contain;
+}
+
+#leftPanel {
+	display: flex;
+	flex-direction: column;
+	width: 30vw;
+	height: 100vh;
+	box-sizing: border-box;
+	
+	border-right: 2px #eee solid;
+}
+
+#roomcodeDisplay {
+	border-bottom: 2px solid #eee;
+	padding: .5em;
+	text-align: center;
+}
+
+#infoPanel {
+	display: flex;
+	justify-content: center;
+	text-align: right;
+	white-space: nowrap;
+	padding: .5em;
+	border-bottom: 2px solid #eee;
+}
+
+#infoPanel > div {
+	min-width: 4vw;
+}
+
+#infoPanel > :not(:last-child) {
+	margin-right: 2vw;
+}
+
+#gameInteractions {
+	display: none;
+	text-align: center;
+	padding: .5em;
+	border-bottom: 2px solid #eee;
+}
+
+#gameInteractions > div:not(:last-child) {
+	padding-bottom: .5em;
+}
+
+#playerGrids {
+	display: flex;
+	align-items: center;
+	
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-between;
+}
+
+.playerGrid {
+	width: 84.75vh; /* this has no basis whatsoever. It just lines up nicely with the official background image */
+	height: 32vh;
+	display: grid;
+	
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+#p1Grid > :last-child {
+	grid-column-start: 7;
+	grid-row-start: 1;
+	grid-row-end: 3;
+}
+
+#hand0 img, #discard0, #exile0, #deck0 {
+	transform: rotate(180deg);
+}
+
+#p1Grid .fieldCardContainer .card {
+	transform: translate(-50%, -50%) rotate(180deg);
+}
+
+#p2Grid > :first-child {
+	grid-column-start: 1;
+	grid-row-start: 1;
+	grid-row-end: 3;
+}
+
+#field .card {
+	width: 85%;
+	margin: auto;
+}
+
+/* These rules are quite odd and I should probably refactor this into something better but it works, so eh. */
+.card, #presentedCards0 img[src$="cardBackFrame.png"], .p1Card[src$="cardBackFrame.png"] {
+	background-size: cover;
+}
+
+#p1Grid .card[src$="cardBackFrame.png"], #hand0 .card[src$="cardBackFrame.png"], #presentedCards0 img[src$="cardBackFrame.png"], .p1Card[src$="cardBackFrame.png"] {
+	background-image: url(""), url("/images/cardBack.png");
+}
+
+#p2Grid .card[src$="cardBackFrame.png"], #hand1 .card[src$="cardBackFrame.png"], #presentedCards1 img[src$="cardBackFrame.png"], .p2Card[src$="cardBackFrame.png"] {
+	background-image: url(""), url("/images/cardBack.png");
+}
+
+.fieldCardContainer {
+	position: relative;
+	width: 100%;
+	min-height: 100%;
+}
+
+.fieldCardContainer .card {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.cardDiv {
+	position: relative;
+	display: inherit;
+}
+
+.cardBtns {
+	display: none;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 50;
+}
+.cardBtns > button {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	white-space: pre;
+}
+
+.fieldCardAmountDisplay {
+	position: absolute;
+	text-align: center;
+	left: 0;
+	width: 100%;
+	top: 50%;
+	transform: translateY(-50%);
+	font-weight: bold;
+	pointer-events: none;
+	filter: drop-shadow(0 0 .1em black) drop-shadow(0 0 .1em black) drop-shadow(0 0 .1em black) drop-shadow(0 0 .3em black);
+	font-size: 1.3em;
+}
+
+.exileHolder {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+	height: 50%;
+}
+
+/* Card Dragging Related */
+
+.dragCard {
+	position: absolute;
+	max-width: 12vh;
+	transform: translate(-50%,-50%) perspective(300px) rotateX(45deg);
+	transition: transform 0.3s ease-out;
+	
+	pointer-events: none;
+	user-select: none;
+	z-index: 95;
+}
+
+#opponentCursor {
+	display: none;
+	transform: translate(-50%, -50%) rotate(180deg);
+	z-index: 90;
+}
+
+.dragSource {
+	opacity: .5;
+}
+
+/* Player's Hand */
+
+.hand {
+	position: absolute;
+	height: 23vh;
+	display: flex;
+	justify-content: center;
+	align-items: end;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 95%;
+	
+	background-color: #0005;
+	border-radius: 1em;
+	
+	transition-property: background;
+	transition-duration: 0.15s;
+	
+	--card-count: 0;
+}
+
+.hand .card {
+	height: 25vh;
+	width: 100vw / var(--card-count);
+	user-select: none;
+	margin-right: min(((var(--card-count) * (813 / 1185) * 25vh - (100% - 1.5em)) / (var(--card-count) - 1)) * -1, .1vw); /* (cardAmount * cardWidth - handMax) / (cardAmount - 1) */
+	
+	transition-property: transform;
+	transition-duration: .1s;
+}
+
+#hand1 :first-child {
+	margin-left: .5vw;
+}
+
+#hand1 :last-child {
+	margin-right: .5vw;
+}
+
+#hand0 :first-child {
+	margin-right: .5vw;
+}
+
+#hand0 :last-child {
+	margin-left: .5vw;
+}
+
+.hand .card:hover {
+	transform: translateY(-15%);
+}
+
+#hand0 {
+	top: -11vh;
+	flex-direction: row-reverse;
+	background: linear-gradient(rgba(0, 0, 0, 0.333) 50%, rgba(0, 0, 0, 0.333) 80%);
+}
+#hand0.shown {
+	background: linear-gradient(rgb(42, 72, 130) 50%, rgba(0, 0, 0, 0.333) 80%);
+}
+
+#hand1 {
+	bottom: -11vh;
+	background: linear-gradient(rgba(0, 0, 0, 0.333) 20%, rgba(0, 0, 0, 0.333) 50%);
+}
+#hand1.shown {
+	background: linear-gradient(rgba(0, 0, 0, 0.333) 20%, rgb(42, 72, 130) 50%);
+}
+
+#deckDropzone {
+	position: relative;
+	min-height: 8em;
+	margin: .5em 1em 0;
+}
+
+.centeredTextDiv {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.clickableText {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#deckSelectSpan {
+	font-size: .6em;
+	pointer-events: auto;
+}
+
+#deckDropTextContainer {
+	pointer-events: none;
+}
+
+#fileSelectDeckLoader {
+	display: none;
+}
+
+label[for="fileSelectDeckLoader"] {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	
+	cursor: pointer;
+}
+
+.sideBox {
+	border: 2px #eee solid;
+	border-radius: .5em;
+	
+	background-color: #0001;
+}
+
+#chatHeader {
+	text-align: center;
+}
+
+#chat {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	height: 1em; /* just needs to be defined so that the chat does not overflow. */
+	margin: 1em;
+}
+
+#chatBox {
+	flex-grow: 1;
+	border-top: 2px #eee solid;
+	border-bottom: 2px #eee solid;
+	overflow-y: scroll;
+	font-size: .75em;
+	padding: .4em 0;
+	box-sizing: border-box;
+	word-wrap: break-word;
+	background-color: #0003;
+}
+
+#chatBox > div {
+	padding: 0 .4em;
+	margin: 3px 0px;
+}
+
+#chatBox > .notice {
+	background-color: #2a4882;
+}
+#chatBox > .warning {
+	background-color: #796a1c;	
+}
+#chatBox > .error {
+	background-color: #802929;	
+}
+
+.emoji {
+	height: 32px;
+	transform: translateY(.3em);
+	
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+}
+
+#chatInput {
+	width: 100%;
+	box-sizing: border-box;
+	background: none;
+	border: none;
+	margin: 0;
+	padding: .5em;
+	color: #eeeeee;
+	outline: none;
+	font-size: .75em;
+}
+
+.popupSelectMenu {
+	display: none; /*will be enabled from js*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-60%, -50%);
+	width: 60vw;
+	height: 80vh;
+	background-color: var(--faded-background);
+	border: 2px #eee solid;
+	border-radius: 1em;
+	z-index: 100;
+}
+
+#overlayBackdrop {
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	width: 100%;
+	height: 100%;
+	background-color: rgba(1, 1, 1, .5);
+	display: none;
+}
+
+#cardSelector, #partnerSelectionMenu {
+	flex-direction: column;
+	
+	text-align: center;
+	font-weight: bold;
+	line-height: 1.5;
+}
+
+#cardSelectorTitle, #selectYourPartnerTitle {
+	padding: .3em 0;
+	border-bottom: 2px #eee solid;
+}
+
+#cardSelector ::-webkit-scrollbar, #partnerSelectionMenu ::-webkit-scrollbar {
+	display: none;
+}
+
+#cardSelectorGrid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.cardListScrollParent {
+	overflow-y: scroll;
+	flex-grow: 1;
+	
+	padding: 0 1em;
+	
+	/*hide scrollbar*/
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+#cardSelectorReturnToDeck {
+	display: none;
+	height: 2em;
+	line-height: 2em;
+	border-top: 2px #eee solid;
+	text-align: center;
+	cursor: default;
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+}
+
+#cardSelectorReturnToDeck:hover {
+	background-color: #fff3;
+}
+
+.cardGrid img {
+	width: 85%;
+	box-sizing: border-box;
+	margin: .3em auto;
+	user-select: none;
+}
+
+.partnerHighlight {
+	box-shadow: 0px 0px .25em #9f9;
+	border: solid 1px #9f9;
+}
+
+/*deck selector*/
+#deckSelector {
+	display: none;
+}
+
+#deckSelectorList {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+#deckList {
+	overflow-y: scroll;
+	flex: auto;
+	
+	/*hide scrollbar*/
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+#deckListHeader {
+	display: flex;
+	min-height: 2em;
+	border-bottom: 2px #eee solid;
+	border-top-left-radius: 1em;
+	align-items: stretch;
+}
+
+#deckListHeader > div:first-child {
+	border-top-left-radius: 1em;
+}
+
+#deckListHeader > div:not(:last-child) {
+	border-right: 1px #eee solid;
+}
+
+#deckListHeader > div:not(:first-child) {
+	border-left: 1px #eee solid;
+}
+
+#deckListFooter {
+	min-height: 2em;
+	max-height: 2em;
+	border-top: 2px #eee solid;
+	border-bottom-left-radius: 1em;
+}
+
+.deckListButton {
+	position: relative;
+	flex-grow: 1;
+}
+
+.deckListButton:hover {
+	background-color: #fff3;
+}
+
+.deckInList {
+	padding: .5em .5em;
+	background-color: #000c;
+	line-height: 1em;
+	border-bottom: 1px #eee solid;
+}
+
+.deckInList:hover {
+	background-color: #222c;
+}
+
+.deckCardAmount {
+	font-size: .8em;
+	color: #bbb;
+}
+
+#selectedDeck {
+	background-color: #126c;
+}
+
+#deckSelectorRight {
+	flex-basis: 65%;
+	border-left: 2px #eee solid;
+	border-radius: 0 1em 1em 0;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+#deckSelectorRight > div {
+	overflow-y: auto;
+}
+
+#deckSelectorCardGrid {
+	height: 70%;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	
+	/*hide scrollbar*/
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+#deckSelectorDescription {
+	height: 30%;
+	padding: .25em .5em;
+	box-sizing: border-box;
+	border-top: 2px solid #eee;
+	white-space: pre-wrap;
+	font-size: .8em;
+}
+
+#partnerSelectQuestion {
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	
+	background-color: var(--faded-background);
+	border: 2px #eee solid;
+	border-radius: 1em;
+	padding: 1em;
+	z-index: 100;
+}
+
+#partnerSelectQuestionBtns {
+	display: flex;
+	justify-content: center;
+	gap: 2em;
+}
+
+#partnerSelectorGrid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.presentedCards {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	justify-content: center;
+	box-sizing: border-box;
+	padding: .5vh 1vh;
+	height: 35%;
+	border-radius: 1vh;
+	background-color: #0005;
+	gap: 1vh;
+	z-index: 75;
+}
+
+.presentedCards:empty {
+	display: none;
+}
+
+/*Class for the presented cards tray when it is being grabbed from*/
+.presentedCardsDragSource {
+	pointer-events: none;
+	opacity: 35%;
+}
+
+.presentedCards > div {
+	position: relative;
+	width: 16.3vh; /*I hate everything about this. This magic number is calculated from the vh of the field, the 35% vh of the presented cards tray and the aspect ration of a Cross Univserse card. Reason being that I can't absolutely position the 'Reveal' button on these when their display is set to content but when the display isn't set to content, the div becomes massive.*/
+	/* Addendum to the rant above: I have bumped the magic number from 16.81 down to 16.3. This number is now essentially based on nothing but it leaves no gap on the right of the card. */
+}
+
+.presentedCards > div > button {
+	position: absolute;
+	left: 50%;
+	top: 90%;
+	transform: translateX(-50%);
+	width: max-content;
+}
+
+.presentedCards img {
+	height: 100%;
+}
+
+#presentedCards0 {
+	flex-direction: row-reverse;
+	top: 13%;
+}
+#presentedCards1 {
+	top: 52%;
+}
+
+/* counters */
+.counterHolder {
+	position: absolute;
+	display: flex;
+	width: 1.5em;
+	z-index: 5;
+	font-size: .8em;
+}
+
+#p1Grid .counterHolder {
+	flex-direction: column-reverse;
+	bottom: 0;
+	left: 0;
+}
+
+#p2Grid .counterHolder {
+	top: 0;
+	right: 0;
+	flex-direction: column;
+}
+
+.counter {
+	text-align: center;
+	background-color: black;
+	border-radius: .5em;
+	border: 2px #eee solid;
+}
+
+.counterAddBtn {
+	display: none;
+	text-align: center;
+	background-color: #aaa;
+	border-radius: .5em;
+	border: 2px #eee solid;
+	font-weight: bold;
+}
+
+.fieldCardContainer:hover .counterAddBtn {
+	display: block;
+}
+
+/* card action buttons */
+.cardActionHolder {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.fieldCardContainer:hover .cardActionHolder {
+	display: block;
+}
+
+#startingPlayerSelect {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* field labels */
+.fieldLabel {
+	display: var(--field-label-display);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-size: 1.5vh;
+	color: black;
+	font-weight: bold;
+	white-space: pre;
+	pointer-events: none;
+}
+
+.verticalFieldLabel {
+	writing-mode: vertical-lr;
+	font-size: 2.5vh;
+}
