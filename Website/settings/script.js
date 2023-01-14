@@ -101,6 +101,8 @@ function setLanguage(language) {
 		hotkeyDestroyTokenLabel.textContent = locale["settings"]["destroyGrabbedToken"];
 		hotkeyChatLabel.textContent = locale["settings"]["writeChatMessage"];
 		hotkeyDrawCardLabel.textContent = locale["settings"]["drawCard"];
+		hotkeyShuffleDeckLabel.textContent = locale["settings"]["shuffleDeck"];
+		hotkeyShowDeckTopLabel.textContent = locale["settings"]["showDeckTop"];
 		hotkeyPreviewHandLabel.textContent = locale["settings"]["previewHandCard"];
 		resetDefaultHotkeys.textContent = locale["settings"]["resetHotkeys"];
 		
