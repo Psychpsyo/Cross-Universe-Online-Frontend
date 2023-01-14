@@ -254,8 +254,7 @@
 							<button id="dotDeckExportBtn" disabled autocomplete="off">Export (.deck)</button>
 							<input id="deckMakerImportInput" type="file">
 							<button id="deckMakerImportBtn">Import a Deck</button>
-							<!--<button id="jsonExportBtn">Export (.json)</button>
-							<button id="startingHandGenBtn">Generate Starting Hands</button>-->
+							<button id="startingHandGenBtn" disabled autocomplete="off">Draw Starting Hand</button>
 						</div>
 					</div>
 				</div>
@@ -301,8 +300,20 @@
 			<div id="cardInfoToDeck">Add Card To Deck</div>
 		</div>
 		
+		<!--div behind starting hand generator-->
+		<div id="startingHandOverlayBlocker" class="overlayBlocker"></div>
+		
+		<div id="startingHandGenerator" class="overlayBox">
+			<header id="handGeneratorTitle">Starting Hand Generator</header>
+			<div id="startingHandGeneratorCards">
+				
+			</div>
+			<div id="regenerateStartingHand">Redraw</div>
+		</div>
+		
 		<script src="scripts/localStorageSetup.js"></script>
 		<script src="scripts/deckUtils.js"></script>
 		<script src="deckMaker/script.js"></script>
+		<script src="deckMaker/startingHands.js"></script>
 	</body>
 </html>

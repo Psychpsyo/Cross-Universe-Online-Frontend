@@ -336,6 +336,7 @@ html {
 #recentCardsHeader {
 	border-bottom: none;
 	cursor: pointer;
+	user-select: none;
 }
 
 #recentCardsList {
@@ -360,6 +361,30 @@ html {
 	display: none;
 }
 
+/* Starting hand generator */
+
+#startingHandGenerator {
+	display: none;
+}
+
+#startingHandGeneratorCards {
+	display: flex;
+	padding: .5em;
+	gap: .5em;
+	border-bottom: 2px #eee solid;
+}
+
+#startingHandGeneratorCards > img {
+	max-width: 15vw;
+	max-height: 50vh;
+}
+
+#regenerateStartingHand {
+	cursor: pointer;
+	user-select: none;
+}
+
+/* This is an <input type="file"> element that needs to be hidden to have it accessible only via a button */
 #deckMakerImportInput {
 	display: none;
 }

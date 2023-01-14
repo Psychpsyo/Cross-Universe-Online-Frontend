@@ -319,6 +319,7 @@ function closeAllDeckMakerOverlays() {
 	cardSearchPanel.style.display = "none";
 	mainOverlayBlocker.style.display = "none";
 	closeCardInfoPanel();
+	closeStartingHandGenerator();
 }
 
 function closeCardInfoPanel() {
@@ -450,6 +451,10 @@ async function addCardToDeck(cardId) {
 	
 	sortCardsInDeck();
 	recalculateDeckStats();
+	
+	if (deckList.length >= 5) {
+		startingHandGenBtn.disabled = false;
+	}
 }
 
 async function removeCardFromDeck(cardId) {
@@ -483,6 +488,10 @@ async function removeCardFromDeck(cardId) {
 	}
 	
 	recalculateDeckStats();
+	
+	if (deckList.length < 5) {
+		startingHandGenBtn.disabled = true;
+	}
 }
 
 function sortCardsInDeck() {
@@ -498,7 +507,6 @@ function sortCardsInDeck() {
 		if (cardTypeOrderings.indexOf(a.dataset.cardID[0]) != cardTypeOrderings.indexOf(b.dataset.cardID[0])) {
 			return cardTypeOrderings.indexOf(a.dataset.cardID[0]) - cardTypeOrderings.indexOf(b.dataset.cardID[0]);
 		} else {
-			console.log(cardInfoCache[a.dataset.cardID]);
 			return cardInfoCache[a.dataset.cardID].level - cardInfoCache[b.dataset.cardID].level;
 		}
 	});
