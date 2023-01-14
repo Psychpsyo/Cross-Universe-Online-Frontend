@@ -219,7 +219,7 @@ function showCardInfo(cardID) {
 	
 	//enable card info display
 	document.getElementById("cardInfoPanel").style.display = "block";
-	document.getElementById("deckMakerOverlayBlocker").style.display = "block";
+	document.getElementById("cardInfoOverlayBlocker").style.display = "block";
 	
 	//load additional data
 	fetch("https://crossuniverse.net/cardInfo/?lang=" + localStorage.getItem("language") + "&cardID=" + cardID)
@@ -304,20 +304,29 @@ document.getElementById("deckMakerSearchButton").addEventListener("click", funct
 });
 //opening the deck creation panel
 document.getElementById("deckMakerDeckButton").addEventListener("click", function() {
-	document.getElementById("deckCreationPanel").style.display = "block";
+	document.getElementById("deckCreationPanel").style.display = "flex";
 	document.getElementById("deckMakerOverlayBlocker").style.display = "block";
 });
 
-//make invisible div close the search panel and card view when clicked
+//make overlay blocker close any overlays when clicked
 function closeAllDeckMakerOverlays() {
 	document.getElementById("deckCreationPanel").style.display = "none";
-	document.getElementById("cardInfoPanel").style.display = "none";
 	document.getElementById("cardSearchPanel").style.display = "none";
 	document.getElementById("deckMakerOverlayBlocker").style.display = "none";
+	closeCardInfoPanel();
+}
+
+function closeCardInfoPanel() {
+	cardInfoPanel.style.display = "none";
+	cardInfoOverlayBlocker.style.display = "none";
 }
 
 document.getElementById("deckMakerOverlayBlocker").addEventListener("click", function() {
 	closeAllDeckMakerOverlays();
+});
+
+document.getElementById("cardInfoOverlayBlocker").addEventListener("click", function() {
+	closeCardInfoPanel();
 });
 
 //clicking on parts of an individual card's info
@@ -356,7 +365,7 @@ document.addEventListener("keyup", function(e) {
 				closeAllDeckMakerOverlays();
 			} else {
 				closeAllDeckMakerOverlays();
-				document.getElementById("deckCreationPanel").style.display = "block";
+				document.getElementById("deckCreationPanel").style.display = "flex";
 				document.getElementById("deckMakerOverlayBlocker").style.display = "block";
 			}
 			break;
@@ -397,8 +406,8 @@ function addCardToDeck(card) {
 		let cardImage = document.createElement("img");
 		cardImage.src = linkFromCardId(card.cardID);
 		cardImage.classList.add("deckMakerCardListElementImg");
-		cardImage.addEventListener("mouseover", function() {
-			document.getElementById("deckMakerBigCard").src = this.src;
+		cardImage.addEventListener("click", function() {
+			showCardInfo(cardIdFromLink(this.src));
 		});
 		cardListElement.appendChild(cardImage);
 		
@@ -604,7 +613,7 @@ document.getElementById("cardInfoToDeck").addEventListener("click", function() {
 		//don't open deck when holding shift
 		if (!shiftHeld) {
 			closeAllDeckMakerOverlays();
-			document.getElementById("deckCreationPanel").style.display = "block";
+			document.getElementById("deckCreationPanel").style.display = "flex";
 			document.getElementById("deckMakerOverlayBlocker").style.display = "block";
 		}
 	}
@@ -699,3 +708,9 @@ document.getElementById("dotDeckExportBtn").addEventListener("click", function()
 	downloadElement.click();
 	downloadElement.remove();
 });
+
+// recent card hiding
+
+recentCardsHeader.addEventListener("click", function() {
+	recentCardsList.classList.toggle("shown");
+})

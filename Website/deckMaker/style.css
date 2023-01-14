@@ -75,12 +75,17 @@ html {
 	background-color: #fff3;
 }
 
-#deckMakerOverlayBlocker {
+.overlayBlocker {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100vw;
 	height: 100vh;
+	background-color: rgba(1, 1, 1, .5);
+}
+
+#cardInfoOverlayBlocker {
+	display: none;
 }
 
 .overlayBox header {
@@ -165,15 +170,19 @@ html {
 /*deck maker panel*/
 #deckCreationPanel {
 	width: 75%;
+	height: 90%;
+	flex-direction: column
 }
 
 #deckMakerMainArea {
 	display: flex;
 	border-bottom: 2px #eee solid;
+	min-height: 50vh;
+	flex-grow: 1;
 }
 
 #deckMakerMainArea > * {
-	height: 50vh;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 }
@@ -196,6 +205,10 @@ html {
 	margin-left: .5em;
 }
 
+#deckWarnings {
+	margin-left: 1em;
+	white-space: normal;
+}
 .warning {
 	color: red;
 }
@@ -257,6 +270,7 @@ html {
 }
 
 #deckCreatorDetailsPanel {
+	min-width: 20em;
 	white-space: nowrap;
 	text-align: left;
 }
@@ -316,18 +330,29 @@ html {
 	justify-content: space-evenly;
 }
 
+/* recent cards area */
+
+#recentCardsHeader {
+	border-bottom: none;
+	cursor: pointer;
+}
+
 #recentCardsList {
 	height: 20vh;
-	display: flex;
+	display: none;
 	padding: .5em;
 	box-sizing: border-box;
 	gap: .5em;
 	overflow-x: scroll;
 	border-radius: 0 0 1em 1em;
+	border-top: 2px #eee solid;
 	
 	/*hide scrollbar*/
 	scrollbar-width: none;
 	-ms-overflow-style: none;
+}
+#recentCardsList.shown {
+	display: flex;
 }
 
 #recentCardsList ::-webkit-scrollbar {
