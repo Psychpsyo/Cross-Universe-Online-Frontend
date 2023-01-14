@@ -103,7 +103,7 @@ html {
 
 .optionListingItem > :first-child {
 	margin-right: 1em;
-	width: 6em;
+	width: 8em;
 	flex-shrink: 0;
 	text-align: right;
 	white-space: nowrap;

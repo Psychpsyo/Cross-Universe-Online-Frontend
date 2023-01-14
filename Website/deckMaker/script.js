@@ -70,35 +70,37 @@ fetch("../data/locales/" + localStorage.getItem("language") + ".json")
 	locale = jsonData;
 	
 	//deck maker translation
-	document.getElementById("unitHeader").textContent = locale["searchUnits"];
-	document.getElementById("tokenHeader").textContent = locale["searchTokens"];
-	document.getElementById("standardSpellHeader").textContent = locale["searchStandardSpells"];
-	document.getElementById("continuousSpellHeader").textContent = locale["searchContinuousSpells"];
-	document.getElementById("enchantSpellHeader").textContent = locale["searchEnchantSpells"];
-	document.getElementById("standardItemHeader").textContent = locale["searchStandardItems"];
-	document.getElementById("continuousItemHeader").textContent = locale["searchContinuousItems"];
-	document.getElementById("equipableItemHeader").textContent = locale["searchEquipableItems"];
+	document.getElementById("unitHeader").textContent = locale["deckMaker"]["units"];
+	document.getElementById("tokenHeader").textContent = locale["deckMaker"]["tokens"];
+	document.getElementById("standardSpellHeader").textContent = locale["deckMaker"]["standardSpells"];
+	document.getElementById("continuousSpellHeader").textContent = locale["deckMaker"]["continuousSpells"];
+	document.getElementById("enchantSpellHeader").textContent = locale["deckMaker"]["enchantSpells"];
+	document.getElementById("standardItemHeader").textContent = locale["deckMaker"]["standardItems"];
+	document.getElementById("continuousItemHeader").textContent = locale["deckMaker"]["continuousItems"];
+	document.getElementById("equipableItemHeader").textContent = locale["deckMaker"]["equipableItems"];
 	
-	document.getElementById("deckMakerDeckButton").textContent = locale["deckMakerDeck"];
+	document.getElementById("deckMakerDeckButton").textContent = locale["deckMaker"]["deck"];
+	document.getElementById("deckMakerSearchButton").textContent = locale["deckMaker"]["search"];
 	
-	document.getElementById("deckMakerDetailsName").textContent = locale["deckMakerDeckName"];
-	document.getElementById("deckMakerDetailsDescription").textContent = locale["deckMakerDescription"];
-	document.getElementById("deckMakerDetailsPartner").textContent = locale["deckMakerPartner"];
+	document.getElementById("deckMakerDetailsName").textContent = locale["deckMaker"]["deckMenu"]["name"];
+	document.getElementById("deckMakerDetailsDescription").textContent = locale["deckMaker"]["deckMenu"]["description"];
+	document.getElementById("deckMakerDetailsPartner").textContent = locale["deckMaker"]["deckMenu"]["partner"];
 	
-	document.getElementById("deckMakerDetailsUnitCount").textContent = locale["deckMakerUnitTotal"];
-	document.getElementById("deckMakerDetailsSpellCount").textContent = locale["deckMakerSpellTotal"];
-	document.getElementById("deckMakerDetailsItemCount").textContent = locale["deckMakerItemTotal"];
+	document.getElementById("deckMakerDetailsUnitCount").textContent = locale["deckMaker"]["deckMenu"]["unitTotal"];
+	document.getElementById("deckMakerDetailsSpellCount").textContent = locale["deckMaker"]["deckMenu"]["spellTotal"];
+	document.getElementById("deckMakerDetailsItemCount").textContent = locale["deckMaker"]["deckMenu"]["itemTotal"];
 	
 	//search panel translation
-	document.getElementById("cardSearchSearchBtn").textContent = locale["searchSearch"];
-	document.getElementById("cardSearchNameLabel").textContent = locale["searchCardName"];
-	document.getElementById("cardSearchIdLabel").textContent = locale["searchCardId"];
-	document.getElementById("cardSearchAttackLabel").textContent = locale["searchAttack"];
-	document.getElementById("cardSearchDefenseLabel").textContent = locale["searchDefense"];
-	document.getElementById("cardSearchTypeLabel").textContent = locale["searchTypes"];
-	document.getElementById("cardSearchCharacterLabel").textContent = locale["searchCharacters"];
-	document.getElementById("cardSearchDeckLimitLabel").textContent = locale["searchDeckLimit"];
-	document.getElementById("cardSearchSortLabel").textContent = locale["searchSortBy"];
+	document.getElementById("cardSearchSearchBtn").textContent = locale["deckMaker"]["searchMenu"]["search"];
+	document.getElementById("cardSearchNameLabel").textContent = locale["deckMaker"]["searchMenu"]["cardName"];
+	document.getElementById("cardSearchIdLabel").textContent = locale["deckMaker"]["searchMenu"]["cardId"];
+	document.getElementById("cardSearchAttackLabel").textContent = locale["deckMaker"]["searchMenu"]["attack"];
+	document.getElementById("cardSearchDefenseLabel").textContent = locale["deckMaker"]["searchMenu"]["defense"];
+	document.getElementById("cardSearchTextLabel").textContent = locale["deckMaker"]["searchMenu"]["textBox"];
+	document.getElementById("cardSearchTypeLabel").textContent = locale["deckMaker"]["searchMenu"]["types"];
+	document.getElementById("cardSearchCharacterLabel").textContent = locale["deckMaker"]["searchMenu"]["characters"];
+	document.getElementById("cardSearchDeckLimitLabel").textContent = locale["deckMaker"]["searchMenu"]["deckLimit"];
+	document.getElementById("cardSearchSortLabel").textContent = locale["deckMaker"]["searchMenu"]["sortBy"];
 	
 	//sort the types alphabetically or by Gojuon
 	let sortedOptions = Array.from(document.getElementById("cardSearchTypeInput").children).sort(function(a, b) {
@@ -119,14 +121,14 @@ fetch("../data/locales/" + localStorage.getItem("language") + ".json")
 	});
 	
 	//card info panel
-	document.getElementById("cardInfoReleaseDateLabel").textContent = locale["cardInfoReleased"];
-	document.getElementById("cardInfoIllustratorLabel").textContent = locale["cardInfoIllustrator"];
-	document.getElementById("cardInfoIdeaLabel").textContent = locale["cardInfoIdea"];
-	document.getElementById("cardInfoMentionedHeader").textContent = locale["cardInfoMentionedCards"];
-	document.getElementById("cardInfoMentionedOnHeader").textContent = locale["cardInfoMentionedOn"];
-	document.getElementById("cardInfoVisibleHeader").textContent = locale["cardInfoVisibleCards"];
-	document.getElementById("cardInfoVisibleOnHeader").textContent = locale["cardInfoVisibleOn"];
-	document.getElementById("cardInfoToDeck").textContent = locale["cardInfoToDeck"];
+	document.getElementById("cardInfoReleaseDateLabel").textContent = locale["deckMaker"]["cardInfo"]["released"];
+	document.getElementById("cardInfoIllustratorLabel").textContent = locale["deckMaker"]["cardInfo"]["illustrator"];
+	document.getElementById("cardInfoIdeaLabel").textContent = locale["deckMaker"]["cardInfo"]["idea"];
+	document.getElementById("cardInfoMentionedHeader").textContent = locale["deckMaker"]["cardInfo"]["mentionedCards"];
+	document.getElementById("cardInfoMentionedOnHeader").textContent = locale["deckMaker"]["cardInfo"]["mentionedOn"];
+	document.getElementById("cardInfoVisibleHeader").textContent = locale["deckMaker"]["cardInfo"]["visibleCards"];
+	document.getElementById("cardInfoVisibleOnHeader").textContent = locale["deckMaker"]["cardInfo"]["visibleOn"];
+	document.getElementById("cardInfoToDeck").textContent = locale["deckMaker"]["cardInfo"]["toDeck"];
 });
 
 //track shift key
