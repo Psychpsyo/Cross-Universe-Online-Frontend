@@ -84,7 +84,7 @@ function receiveMessage(e) {
 			break;
 		}
 		case "choosePartner": { // opponent selected their partner
-			field2.src = "images/cardBackFrame.png";
+			field2.src = "images/cardBackFrameP0.png";
 			let partnerPosInDeck = cardAreas["deck0"].cards.findIndex(card => {return card.id == cardIdToLocal(message)});
 			opponentPartner = cardAreas["deck0"].cards.splice(partnerPosInDeck, 1)[0];
 			cardAreas["deck0"].updateVisual();
@@ -108,7 +108,7 @@ function receiveMessage(e) {
 			
 			let hiddenGrab = cardArea.isGrabHidden(cardId)
 			opponentHeldCard = cardArea.grabCard(cardId);
-			opponentCursor.src = hiddenGrab? "images/cardBackFrame.png" : opponentHeldCard.getImage();
+			opponentCursor.src = hiddenGrab? "images/cardBackFrameP0.png" : opponentHeldCard.getImage();
 			break;
 		}
 		case "droppedCard": { // opponent dropped a card
@@ -253,7 +253,7 @@ function receiveMessage(e) {
 		}
 		case "unrevealCard": { // opponent hid a presented card
 			let cardDiv = presentedCards0.children.item(parseInt(message));
-			cardDiv.src = "images/cardBackFrame.png";
+			cardDiv.src = "images/cardBackFrameP0.png";
 			cardDiv.dataset.shown = false;
 			break;
 		}

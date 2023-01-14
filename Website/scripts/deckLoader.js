@@ -67,7 +67,7 @@ function loadDeck(deck) {
 // called after partner selection
 function finishDeckLoading(partnerId = null) {
 	partnerId = partnerId ?? loadedDeck["suggestedPartner"];
-	document.getElementById("field17").src = "images/cardBackFrame.png";
+	document.getElementById("field17").src = "images/cardBackFrameP1.png";
 	
 	let partnerPosInDeck = cardAreas["deck1"].cards.findIndex(card => {return card.cardId == partnerId});
 	loadedPartner = cardAreas["deck1"].cards.splice(partnerPosInDeck, 1)[0];

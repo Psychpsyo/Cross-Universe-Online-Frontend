@@ -11,7 +11,7 @@ function setCardBackForPlayer(player, backLink) {
 	
 	let rightSheet = Array.from(document.styleSheets).filter(function(sheet) {return sheet.href.endsWith("game.css")})[0];
 	//this matches the very specific rule that applies to all places where there's face down cards of the specified player.
-	let cardBackRule = Array.from(rightSheet.rules).filter(function(rule) {return rule.selectorText == "#p" + (player + 1) + "Grid .card[src$=\"cardBackFrame.png\"], #hand" + player + " .card[src$=\"cardBackFrame.png\"], #presentedCards" + player + " img[src$=\"cardBackFrame.png\"], .p" + (player + 1) + "Card[src$=\"cardBackFrame.png\"]"})[0];
+	let cardBackRule = Array.from(rightSheet.rules).filter(rule => rule.selectorText == "img[src$=\"cardBackFrameP" + player + ".png\"]")[0];
 	cardBackRule.style.backgroundImage = "url('" + backLink + "'), url('/images/cardBack.png')";
 }
 setCardBackForPlayer(1, localStorage.getItem("cardBack"));

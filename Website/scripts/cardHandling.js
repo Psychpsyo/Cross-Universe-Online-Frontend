@@ -172,7 +172,7 @@ class fieldCardArea extends cardArea {
 	
 	// returns a bool, stating whether or not the card in this slot is face-down
 	isFaceDown() {
-		return this.fieldSlot.src.endsWith("images/cardBackFrame.png");
+		return this.fieldSlot.src.endsWith("images/cardBackFrameP1.png") || this.fieldSlot.src.endsWith("images/cardBackFrameP0.png");
 	}
 }
 
@@ -454,7 +454,7 @@ class deckCardArea extends cardArea {
 	
 	// updates what the deck looks like in the DOM
 	updateVisual() {
-		document.getElementById("deck" + this.playerIndex).src = this.cards.length > 0? "images/cardBackFrame.png" : "images/cardHidden.png";
+		document.getElementById("deck" + this.playerIndex).src = this.cards.length > 0? "images/cardBackFrameP" + this.playerIndex + ".png" : "images/cardHidden.png";
 		document.getElementById("deck" + this.playerIndex + "CardCount").textContent = this.cards.length > 0? this.cards.length : "";
 	}
 }
@@ -561,7 +561,7 @@ class opponentHandCardArea extends cardArea {
 		
 		// add the img for the new card to the DOM with its event handlers
 		let newCard = document.createElement("img");
-		newCard.src = this.hidden? "images/cardBackFrame.png" : card.getImage();
+		newCard.src = this.hidden? "images/cardBackFrameP0.png" : card.getImage();
 		newCard.classList.add("card");
 		newCard.dataset.cardId = card.id;
 		newCard.addEventListener("click", function(e) {
@@ -596,7 +596,7 @@ class opponentHandCardArea extends cardArea {
 	hideCards() {
 		this.hidden = true;
 		Array.from(hand0.children).forEach(img => {
-			img.src = "images/cardBackFrame.png";
+			img.src = "images/cardBackFrameP0.png";
 		});
 		document.getElementById("hand0").classList.remove("shown");
 	}
@@ -634,7 +634,7 @@ class opponentPresentedCardsArea extends cardArea {
 		
 		//set up the card DOM element
 		let cardImg = document.createElement("img")
-		cardImg.src = "images/cardBackFrame.png";
+		cardImg.src = "images/cardBackFrameP0.png";
 		cardImg.dataset.shown = false;
 		cardImg.dataset.cardId = card.id;
 		cardImg.addEventListener("dragstart", function(e) {

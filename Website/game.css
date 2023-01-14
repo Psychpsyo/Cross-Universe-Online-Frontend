@@ -227,16 +227,15 @@ body {
 	margin: auto;
 }
 
-/* These rules are quite odd and I should probably refactor this into something better but it works, so eh. */
-.card, #presentedCards0 img[src$="cardBackFrame.png"], .p1Card[src$="cardBackFrame.png"] {
+img[src$="cardBackFrameP0.png"], img[src$="cardBackFrameP1.png"] {
 	background-size: cover;
 }
 
-#p1Grid .card[src$="cardBackFrame.png"], #hand0 .card[src$="cardBackFrame.png"], #presentedCards0 img[src$="cardBackFrame.png"], .p1Card[src$="cardBackFrame.png"] {
+img[src$="cardBackFrameP0.png"] {
 	background-image: url(""), url("/images/cardBack.png");
 }
 
-#p2Grid .card[src$="cardBackFrame.png"], #hand1 .card[src$="cardBackFrame.png"], #presentedCards1 img[src$="cardBackFrame.png"], .p2Card[src$="cardBackFrame.png"] {
+img[src$="cardBackFrameP1.png"] {
 	background-image: url(""), url("/images/cardBack.png");
 }
 
