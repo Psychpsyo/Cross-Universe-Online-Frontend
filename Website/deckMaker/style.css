@@ -76,6 +76,7 @@ html {
 }
 
 .overlayBlocker {
+	display: none;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -84,8 +85,8 @@ html {
 	background-color: rgba(1, 1, 1, .5);
 }
 
-#cardInfoOverlayBlocker {
-	display: none;
+#mainOverlayBlocker {
+	display: block;
 }
 
 .overlayBox header {

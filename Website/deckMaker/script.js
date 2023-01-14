@@ -1,4 +1,3 @@
-let currentlyViewedCard = null;
 let shiftHeld = false;
 //load illustrator tags
 let illustratorTags = {};
@@ -154,6 +153,16 @@ function cardIdFromLink(imgLink) {
 	return imgLink.substr(imgLink.length - 10, 6);
 }
 
+// Detailed card info gets cached manually to not rely on the browser's caching system when sending many requests.
+let cardInfoCache = {};
+async function getCardInfo(cardId) {
+	if (!cardInfoCache[cardId]) {
+		const response = await fetch("https://crossuniverse.net/cardInfo/?lang=" + localStorage.getItem("language") + "&cardID=" + cardId, {cache: "force-cache"});
+		cardInfoCache[cardId] = await response.json();
+	}
+	return cardInfoCache[cardId];
+}
+
 function searchCards(query) {
 	//clear current card lists:
 	Array.from(document.getElementsByClassName("deckMakerGrid")).forEach(list => {
@@ -167,7 +176,7 @@ function searchCards(query) {
 	.then(response => {
 		document.getElementById("cardInfoPanel").style.display = "none";
 		document.getElementById("cardSearchPanel").style.display = "none";
-		document.getElementById("deckMakerOverlayBlocker").style.display = "none";
+		document.getElementById("mainOverlayBlocker").style.display = "none";
 		JSON.parse(response).forEach(card => {
 			let cardImg = document.createElement("img");
 			cardImg.loading = "lazy";
@@ -198,15 +207,14 @@ function fillCardResultGrid(cardList, grid) {
 	}
 }
 
-function showCardInfo(cardID) {
-	//reset viewed card
-	currentlyViewedCard = null;
-	
+async function showCardInfo(cardID) {
 	//fill in basic card info
 	document.getElementById("cardInfoCardImg").src = linkFromCardId(cardID);
 	document.getElementById("cardInfoCardID").textContent = "CU" + cardID;
+	cardInfoToDeck.dataset.cardID = cardID;
 	
-	document.getElementById("cardInfoCardName").innerHTML = "---"; //name is --- until data from server arrives
+	// name is --- until data from server arrives
+	document.getElementById("cardInfoCardName").innerHTML = "---";
 	
 	//hide all info bits (they get re-enabled later, if that info arrives)
 	document.getElementById("cardInfoReleaseDateArea").style.display = "none";
@@ -221,51 +229,48 @@ function showCardInfo(cardID) {
 	document.getElementById("cardInfoPanel").style.display = "block";
 	document.getElementById("cardInfoOverlayBlocker").style.display = "block";
 	
-	//load additional data
-	fetch("https://crossuniverse.net/cardInfo/?lang=" + localStorage.getItem("language") + "&cardID=" + cardID)
-	.then(response => response.text())
-	.then(response => {
-		cardInfo = JSON.parse(response);
-		//fill in viewed card once all data is available, It is now ready to be added to a deck.
-		currentlyViewedCard = cardInfo;
-		//fill in name
-		if (cardInfo.nameFurigana) {
-			let cardNameFurigana = cardInfo.name;
-			cardInfo.nameFurigana.reverse().forEach(furigana => {
-				//check for empty necessary to determine whether or not furigana needs parentheses in unsupported browsers.
-				if (furigana.text != "") {
-					cardNameFurigana = cardNameFurigana.slice(0, furigana.end) + "<rp>(</rp><rt>" + furigana.text + "</rt><rp>)</rp>" + cardNameFurigana.slice(furigana.end);
-				} else {
-					cardNameFurigana = cardNameFurigana.slice(0, furigana.end) + "<rt>" + furigana.text + "</rt>" + cardNameFurigana.slice(furigana.end);
-				}
-			});
-			document.getElementById("cardInfoCardName").innerHTML = "<ruby>" + cardNameFurigana + "</ruby>";
-		} else {
-			document.getElementById("cardInfoCardName").textContent = cardInfo.name;
-		}
-		
-		//fill in release date
-		if (cardInfo.releaseDate) {
-			document.getElementById("cardInfoReleaseDate").textContent = cardInfo.releaseDate;
-			document.getElementById("cardInfoReleaseDateArea").style.display = "inline";
-		}
-		
-		if (cardInfo.illustrator) {
-			document.getElementById("cardInfoIllustrator").textContent = illustratorTags[cardInfo.illustrator][localStorage.getItem("language")];
-			document.getElementById("cardInfoIllustratorArea").style.display = "inline";
-		}
-		
-		if (cardInfo.idea) {
-			document.getElementById("cardInfoIdea").textContent = contestWinnerTags[cardInfo.idea][localStorage.getItem("language")];
-			document.getElementById("cardInfoIdeaArea").style.display = "inline";
-		}
-		
-		//add mentioned cards to grid
-		fillCardResultGrid(cardInfo.cardMentions, "Mentioned");
-		fillCardResultGrid(cardInfo.mentionedOn, "MentionedOn");
-		fillCardResultGrid(cardInfo.visibleCards, "Visible");
-		fillCardResultGrid(cardInfo.visibleOn, "VisibleOn");
-	});
+	//load card data
+	let cardInfo = await getCardInfo(cardID);
+	//fill in name
+	if (cardInfo.nameFurigana) {
+		let cardNameFurigana = cardInfo.name;
+		cardInfo.nameFurigana.reverse().forEach(furigana => {
+			//check for empty necessary to determine whether or not furigana needs parentheses in unsupported browsers.
+			if (furigana.text != "") {
+				cardNameFurigana = cardNameFurigana.slice(0, furigana.end) + "<rp>(</rp><rt>" + furigana.text + "</rt><rp>)</rp>" + cardNameFurigana.slice(furigana.end);
+			} else {
+				cardNameFurigana = cardNameFurigana.slice(0, furigana.end) + "<rt>" + furigana.text + "</rt>" + cardNameFurigana.slice(furigana.end);
+			}
+		});
+		document.getElementById("cardInfoCardName").innerHTML = "<ruby>" + cardNameFurigana + "</ruby>";
+	} else {
+		document.getElementById("cardInfoCardName").textContent = cardInfo.name;
+	}
+	
+	//fill in release date
+	if (cardInfo.releaseDate) {
+		cardInfoReleaseDate.textContent = cardInfo.releaseDate;
+		cardInfoReleaseDate.dataset.releaseDate = cardInfo.releaseDate;
+		cardInfoReleaseDateArea.style.display = "inline";
+	}
+	
+	if (cardInfo.illustrator) {
+		cardInfoIllustrator.textContent = illustratorTags[cardInfo.illustrator][localStorage.getItem("language")];
+		cardInfoIllustrator.dataset.illustrator = cardInfo.illustrator;
+		cardInfoIllustratorArea.style.display = "inline";
+	}
+	
+	if (cardInfo.idea) {
+		cardInfoIdea.textContent = contestWinnerTags[cardInfo.idea][localStorage.getItem("language")];
+		cardInfoIdea.dataset.idea = cardInfo.idea;
+		cardInfoIdeaArea.style.display = "inline";
+	}
+	
+	//add mentioned cards to grid
+	fillCardResultGrid(cardInfo.cardMentions, "Mentioned");
+	fillCardResultGrid(cardInfo.mentionedOn, "MentionedOn");
+	fillCardResultGrid(cardInfo.visibleCards, "Visible");
+	fillCardResultGrid(cardInfo.visibleOn, "VisibleOn");
 }
 
 document.getElementById("cardSearchSearchBtn").addEventListener("click", function() {
@@ -299,20 +304,20 @@ document.getElementById("cardSearchSearchBtn").addEventListener("click", functio
 
 //opening the search panel
 document.getElementById("deckMakerSearchButton").addEventListener("click", function() {
-	document.getElementById("cardSearchPanel").style.display = "block";
-	document.getElementById("deckMakerOverlayBlocker").style.display = "block";
+	cardSearchPanel.style.display = "block";
+	mainOverlayBlocker.style.display = "block";
 });
 //opening the deck creation panel
 document.getElementById("deckMakerDeckButton").addEventListener("click", function() {
-	document.getElementById("deckCreationPanel").style.display = "flex";
-	document.getElementById("deckMakerOverlayBlocker").style.display = "block";
+	deckCreationPanel.style.display = "flex";
+	mainOverlayBlocker.style.display = "block";
 });
 
 //make overlay blocker close any overlays when clicked
 function closeAllDeckMakerOverlays() {
-	document.getElementById("deckCreationPanel").style.display = "none";
-	document.getElementById("cardSearchPanel").style.display = "none";
-	document.getElementById("deckMakerOverlayBlocker").style.display = "none";
+	deckCreationPanel.style.display = "none";
+	cardSearchPanel.style.display = "none";
+	mainOverlayBlocker.style.display = "none";
 	closeCardInfoPanel();
 }
 
@@ -321,23 +326,23 @@ function closeCardInfoPanel() {
 	cardInfoOverlayBlocker.style.display = "none";
 }
 
-document.getElementById("deckMakerOverlayBlocker").addEventListener("click", function() {
+mainOverlayBlocker.addEventListener("click", function() {
 	closeAllDeckMakerOverlays();
 });
 
-document.getElementById("cardInfoOverlayBlocker").addEventListener("click", function() {
+cardInfoOverlayBlocker.addEventListener("click", function() {
 	closeCardInfoPanel();
 });
 
-//clicking on parts of an individual card's info
+//clicking on parts of an individual card's info to search by those
 document.getElementById("cardInfoReleaseDate").addEventListener("click", function() {
-	searchCards({releaseDate: currentlyViewedCard.releaseDate});
+	searchCards({releaseDate: this.releaseDate});
 });
 document.getElementById("cardInfoIllustrator").addEventListener("click", function() {
-	searchCards({illustrator: currentlyViewedCard.illustrator});
+	searchCards({illustrator: this.illustrator});
 });
 document.getElementById("cardInfoIdea").addEventListener("click", function() {
-	searchCards({idea: currentlyViewedCard.idea});
+	searchCards({idea: this.idea});
 });
 
 //hotkeys
@@ -385,15 +390,15 @@ document.addEventListener("keyup", function(e) {
 });
 
 //editing the work-in-progress deck
-let deckMakerDeckList = [];
-let loadedCardData = {};
+let deckList = [];
 
-function addCardToDeck(card) {
+async function addCardToDeck(cardId) {
+	card = await getCardInfo(cardId);
 	//add card to the list on the left
-	if (deckMakerDeckList.includes(card.cardID)) {
+	if (deckList.includes(cardId)) {
 		//card already there, just increase its counter by one
-		let cardAmountDiv = (document.getElementById("deckCreatorCardList").querySelectorAll("[data-card-i-d='" + card.cardID + "']"))[0].children.item(1).children.item(1);
-		cardAmountDiv.textContent = deckMakerDeckList.filter(x => x === card.cardID).length + 1;
+		let cardAmountDiv = (document.getElementById("deckCreatorCardList").querySelectorAll("[data-card-i-d='" + cardId + "']"))[0].children.item(1).children.item(1);
+		cardAmountDiv.textContent = deckList.filter(x => x === cardId).length + 1;
 		
 		//check if the card limit for that card was exceeded
 		if (cardAmountDiv.textContent > card.deckLimit) {
@@ -402,9 +407,9 @@ function addCardToDeck(card) {
 	} else {
 		//need to add the card to the list
 		let cardListElement = document.createElement("div");
-		cardListElement.dataset.cardID = card.cardID;
+		cardListElement.dataset.cardID = cardId;
 		let cardImage = document.createElement("img");
-		cardImage.src = linkFromCardId(card.cardID);
+		cardImage.src = linkFromCardId(cardId);
 		cardImage.classList.add("deckMakerCardListElementImg");
 		cardImage.addEventListener("click", function() {
 			showCardInfo(cardIdFromLink(this.src));
@@ -423,17 +428,17 @@ function addCardToDeck(card) {
 		btnDiv.children.item(2).textContent = "+";
 		
 		btnDiv.children.item(0).addEventListener("click", function() {
-			removeCardFromDeck(loadedCardData[this.parentElement.parentElement.dataset.cardID]);
+			removeCardFromDeck(this.parentElement.parentElement.dataset.cardID);
 		});
 		btnDiv.children.item(2).addEventListener("click", function() {
-			addCardToDeck(loadedCardData[this.parentElement.parentElement.dataset.cardID]);
+			addCardToDeck(this.parentElement.parentElement.dataset.cardID);
 		});
 		
 		document.getElementById("deckCreatorCardList").appendChild(cardListElement);
 	}
 	
 	//if unit, add card as partner choice
-	if (card.cardType == "unit" && card.level < 6 && !deckMakerDeckList.includes(card.cardID)) {
+	if (card.cardType == "unit" && card.level < 6 && !deckList.includes(card.cardID)) {
 		let partnerOption = document.createElement("option");
 		partnerOption.textContent = card.name;
 		partnerOption.value = card.cardID;
@@ -441,27 +446,26 @@ function addCardToDeck(card) {
 	}
 	
 	//add card to the actual, internal deck list
-	loadedCardData[card.cardID] = card;
-	deckMakerDeckList.push(card.cardID);
+	deckList.push(cardId);
 	
 	sortCardsInDeck();
 	recalculateDeckStats();
 }
 
-function removeCardFromDeck(card) {
+async function removeCardFromDeck(cardId) {
 	//remove card from the internal deck list
-	deckMakerDeckList.splice(deckMakerDeckList.indexOf(card.cardID), 1);
+	deckList.splice(deckList.indexOf(cardId), 1);
 	
 	//find the card on the page
-	let cardListElement = (document.getElementById("deckCreatorCardList").querySelectorAll("[data-card-i-d='" + card.cardID + "']"))[0];
+	let cardListElement = (document.getElementById("deckCreatorCardList").querySelectorAll("[data-card-i-d='" + cardId + "']"))[0];
 	
-	if (deckMakerDeckList.includes(card.cardID)) {
+	if (deckList.includes(cardId)) {
 		//card still here, just decrease number by one
 		let cardAmountDiv = cardListElement.children.item(1).children.item(1);
-		cardAmountDiv.textContent = deckMakerDeckList.filter(x => x === card.cardID).length;
+		cardAmountDiv.textContent = deckList.filter(x => x === cardId).length;
 		
 		//check if the card limit for that card is exceeded
-		if (cardAmountDiv.textContent <= card.deckLimit) {
+		if (cardAmountDiv.textContent <= (await getCardInfo(cardId)).deckLimit) {
 			cardAmountDiv.style.color = "revert";
 		}
 	} else {
@@ -469,13 +473,13 @@ function removeCardFromDeck(card) {
 		cardListElement.remove();
 		
 		//also reset the partner choice, if necessary
-		let partnerSelectOptions = document.getElementById("deckMakerDetailsPartnerSelect").querySelectorAll("[value='" + card.cardID + "']");
+		let partnerSelectOptions = document.getElementById("deckMakerDetailsPartnerSelect").querySelectorAll("[value='" + cardId + "']");
 		if (partnerSelectOptions.length > 0) {
 			partnerSelectOptions[0].remove();
 		}
 		
 		//lastly, add the card to the recent cards for quick re-adding
-		addRecentCard(card);
+		addRecentCard(cardId);
 	}
 	
 	recalculateDeckStats();
@@ -494,7 +498,8 @@ function sortCardsInDeck() {
 		if (cardTypeOrderings.indexOf(a.dataset.cardID[0]) != cardTypeOrderings.indexOf(b.dataset.cardID[0])) {
 			return cardTypeOrderings.indexOf(a.dataset.cardID[0]) - cardTypeOrderings.indexOf(b.dataset.cardID[0]);
 		} else {
-			return loadedCardData[a.dataset.cardID].level - loadedCardData[b.dataset.cardID].level;
+			console.log(cardInfoCache[a.dataset.cardID]);
+			return cardInfoCache[a.dataset.cardID].level - cardInfoCache[b.dataset.cardID].level;
 		}
 	});
 	
@@ -503,7 +508,7 @@ function sortCardsInDeck() {
 	});
 }
 
-function recalculateDeckStats() {
+async function recalculateDeckStats() {
 	let unitCount = 0;
 	let spellCount = 0;
 	let itemCount = 0;
@@ -514,39 +519,40 @@ function recalculateDeckStats() {
 		levelDist[i] = {total: 0, units: 0, spells: 0, items: 0};
 	}
 	
-	deckMakerDeckList.forEach(cardID => {
+	for (const cardID of deckList) {
+		card = await getCardInfo(cardID);
 		//max necessary to catch the Lvl? Token that is denoted as -1 in the dataset
-		levelDist[Math.max(0, loadedCardData[cardID].level)].total++;
+		levelDist[Math.max(0, card.level)].total++;
 		switch (cardID[0]) {
 			case "U": {
 				unitCount++;
-				levelDist[loadedCardData[cardID].level].units++;
+				levelDist[card.level].units++;
 				break;
 			}
 			case "S": {
 				spellCount++;
-				levelDist[loadedCardData[cardID].level].spells++;
+				levelDist[card.level].spells++;
 				break;
 			}
 			case "I": {
 				itemCount++;
-				levelDist[loadedCardData[cardID].level].items++;
+				levelDist[card.level].items++;
 				break;
 			}
 			case "T": {
 				tokenCount++;
 				//don't count tokens in the level distribution
-				levelDist[Math.max(0, loadedCardData[cardID].level)].total--;
+				levelDist[Math.max(0, card.level)].total--;
 				break;
 			}
 		}
-	});
+	}
 	
-	document.getElementById("deckMakerDetailsCardTotalValue").textContent = deckMakerDeckList.length;
-	if (deckMakerDeckList.length > 0) {
-		document.getElementById("deckMakerDetailsUnitCountValue").textContent = unitCount + " (" + (unitCount / deckMakerDeckList.length * 100).toFixed(2) + "%)";
-		document.getElementById("deckMakerDetailsSpellCountValue").textContent = spellCount + " (" + (spellCount / deckMakerDeckList.length * 100).toFixed(2) + "%)";
-		document.getElementById("deckMakerDetailsItemCountValue").textContent = itemCount + " (" + (itemCount / deckMakerDeckList.length * 100).toFixed(2) + "%)";
+	document.getElementById("deckMakerDetailsCardTotalValue").textContent = deckList.length;
+	if (deckList.length > 0) {
+		document.getElementById("deckMakerDetailsUnitCountValue").textContent = unitCount + " (" + (unitCount / deckList.length * 100).toFixed(2) + "%)";
+		document.getElementById("deckMakerDetailsSpellCountValue").textContent = spellCount + " (" + (spellCount / deckList.length * 100).toFixed(2) + "%)";
+		document.getElementById("deckMakerDetailsItemCountValue").textContent = itemCount + " (" + (itemCount / deckList.length * 100).toFixed(2) + "%)";
 	} else {
 		//set preset values to avoid divide by 0 above
 		document.getElementById("deckMakerDetailsUnitCountValue").textContent = "0 (0.00%)";
@@ -578,23 +584,17 @@ function recalculateDeckStats() {
 	//enable/disable warnings
 	document.getElementById("unitWarning").style.display = unitCount == 0? "inline" : "none";
 	document.getElementById("tokenWarning").style.display = tokenCount == 0? "none" : "inline";
-	document.getElementById("cardMinWarning").style.display = deckMakerDeckList.length >= 30? "none" : "inline";
-	document.getElementById("cardMaxWarning").style.display = deckMakerDeckList.length < 51? "none" : "inline";
+	document.getElementById("cardMinWarning").style.display = deckList.length >= 30? "none" : "inline";
+	document.getElementById("cardMaxWarning").style.display = deckList.length < 51? "none" : "inline";
 	document.getElementById("partnerWarning").style.display = document.getElementById("deckMakerDetailsPartnerSelect").value == ""? "inline" : "none";
 	document.getElementById("dotDeckExportBtn").disabled = document.getElementById("deckMakerDetailsPartnerSelect").value == "";
 }
 
-function addRecentCard(card) {
-	if (loadedCardData[card.cardID] == undefined) {
-		loadedCardData[card.cardID] = card;
-	}
+function addRecentCard(cardId) {
 	let cardImg = document.createElement("img");
-	cardImg.src = linkFromCardId(card.cardID);
-	cardImg.addEventListener("mouseover", function() {
-		document.getElementById("deckMakerBigCard").src = this.src;
-	});
+	cardImg.src = linkFromCardId(cardId);
 	cardImg.addEventListener("click", function() {
-		addCardToDeck(loadedCardData[cardIdFromLink(this.src)]);
+		addCardToDeck(cardIdFromLink(this.src));
 		this.remove();
 	});
 	document.getElementById("recentCardsList").insertBefore(cardImg, document.getElementById("recentCardsList").firstChild);
@@ -607,15 +607,13 @@ function addRecentCard(card) {
 
 //add card to deck from card detail view and go to deck
 document.getElementById("cardInfoToDeck").addEventListener("click", function() {
-	if (currentlyViewedCard) {
-		addCardToDeck(currentlyViewedCard);
-		
-		//don't open deck when holding shift
-		if (!shiftHeld) {
-			closeAllDeckMakerOverlays();
-			document.getElementById("deckCreationPanel").style.display = "flex";
-			document.getElementById("deckMakerOverlayBlocker").style.display = "block";
-		}
+	addCardToDeck(this.dataset.cardID);
+	
+	//don't open deck when holding shift
+	if (!shiftHeld) {
+		closeAllDeckMakerOverlays();
+		deckCreationPanel.style.display = "flex";
+		mainOverlayBlocker.style.display = "block";
 	}
 });
 
@@ -631,8 +629,8 @@ document.getElementById("deckMakerImportBtn").addEventListener("click", function
 
 document.getElementById("deckMakerImportInput").addEventListener("change", function() {
 	//remove all cards from current deck
-	while (deckMakerDeckList.length > 0) {
-		removeCardFromDeck(loadedCardData[deckMakerDeckList[0]]);
+	while (deckList.length > 0) {
+		removeCardFromDeck(deckList[0]);
 	}
 	//clear recent cards
 	while (document.getElementById("recentCardsList").firstChild) {
@@ -640,7 +638,7 @@ document.getElementById("deckMakerImportInput").addEventListener("change", funct
 	}
 	
 	let reader = new FileReader();
-	reader.onload = function(e) {
+	reader.onload = async function(e) {
 		//check if deck is in VCI Generator format (ending is .deck) and if so, convert it
 		let loadedDeck = this.fileName.endsWith(".deck")? deckUtils.toJsonDeck(JSON.parse(e.target.result)) : JSON.parse(e.target.result);
 		
@@ -652,22 +650,16 @@ document.getElementById("deckMakerImportInput").addEventListener("change", funct
 		}
 		
 		//load cards
-		loadedDeck.cards.reverse().forEach(card => {
+		for (const card of loadedDeck.cards.reverse()) {
+			for (let i = 0; i < card.amount; i++) {
+				await addCardToDeck(card.id);
+			}
 			
-			fetch("https://crossuniverse.net/cardInfo/?lang=" + localStorage.getItem("language") + "&cardID=" + card.id)
-			.then(response => response.text())
-			.then(response => {
-				cardInfo = JSON.parse(response);
-				for (let i = 0; i < card.amount; i++) {
-					addCardToDeck(cardInfo);
-				}
-				
-				if (loadedDeck.suggestedPartner == cardInfo.cardID) {
-					document.getElementById("deckMakerDetailsPartnerSelect").value = loadedDeck.suggestedPartner;
-					recalculateDeckStats();
-				}
-			});
-		});
+			if (loadedDeck.suggestedPartner == card.id) {
+				document.getElementById("deckMakerDetailsPartnerSelect").value = loadedDeck.suggestedPartner;
+				recalculateDeckStats();
+			}
+		}
 		
 		//set deck name
 		document.getElementById("deckMakerDetailsNameInput").value = loadedDeck.name[localStorage.getItem("language")] ?? loadedDeck.name.en ?? loadedDeck.name.ja ?? "";
@@ -689,14 +681,14 @@ document.getElementById("dotDeckExportBtn").addEventListener("click", function()
 	}
 	deckObject.Partner = "CU" + document.getElementById("deckMakerDetailsPartnerSelect").value;
 	
-	deckMakerDeckList.sort().reverse();
+	deckList.sort().reverse();
 	//temporarily remove partner
-	deckMakerDeckList.splice(deckMakerDeckList.indexOf(document.getElementById("deckMakerDetailsPartnerSelect").value), 1);
-	deckMakerDeckList.forEach(cardID => {
+	deckList.splice(deckList.indexOf(document.getElementById("deckMakerDetailsPartnerSelect").value), 1);
+	deckList.forEach(cardID => {
 		deckObject.Cards.push("CU" + cardID);
 	});
 	//re-add partner
-	deckMakerDeckList.push(document.getElementById("deckMakerDetailsPartnerSelect").value);
+	deckList.push(document.getElementById("deckMakerDetailsPartnerSelect").value);
 	
 	//generate the actual download
 	let downloadElement = document.createElement("a");

@@ -74,8 +74,8 @@
 			</div>
 		</div>
 		
-		<!--div behind popups-->
-		<div id="deckMakerOverlayBlocker" class="overlayBlocker"></div>
+		<!--div behind search and deck overlays-->
+		<div id="mainOverlayBlocker" class="overlayBlocker"></div>
 		
 		<!--search panel-->
 		<div id="cardSearchPanel" class="overlayBox">
@@ -250,7 +250,8 @@
 						<hr>
 						<span>Options:</span><br>
 						<div id="deckMakerOptionButtons">
-							<button id="dotDeckExportBtn" disabled="true">Export (.deck)</button>
+							<!-- autocomplete must be off so that the button always starts disabled. -->
+							<button id="dotDeckExportBtn" disabled autocomplete="off">Export (.deck)</button>
 							<input id="deckMakerImportInput" type="file">
 							<button id="deckMakerImportBtn">Import a Deck</button>
 							<!--<button id="jsonExportBtn">Export (.json)</button>
@@ -266,7 +267,7 @@
 		</div>
 		
 		
-		<!--div behind card info popup-->
+		<!--div behind card info panel-->
 		<div id="cardInfoOverlayBlocker" class="overlayBlocker"></div>
 		
 		<!--card info panel-->
