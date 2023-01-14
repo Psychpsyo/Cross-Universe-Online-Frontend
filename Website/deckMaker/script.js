@@ -61,7 +61,7 @@ let jpTypesHiragana = {
 	"typeless": "ん"
 }
 
-// load locale
+// load locale and translate page
 fetch("../data/locales/" + localStorage.getItem("language") + ".json")
 .then(response => {
 	return response.json()
@@ -69,7 +69,10 @@ fetch("../data/locales/" + localStorage.getItem("language") + ".json")
 .then(jsonData => {
 	locale = jsonData;
 	
-	//deck maker translation
+	// main section
+	document.getElementById("deckMakerDeckButton").textContent = locale["deckMaker"]["deck"];
+	document.getElementById("deckMakerSearchButton").textContent = locale["deckMaker"]["search"];
+	
 	document.getElementById("unitHeader").textContent = locale["deckMaker"]["units"];
 	document.getElementById("tokenHeader").textContent = locale["deckMaker"]["tokens"];
 	document.getElementById("standardSpellHeader").textContent = locale["deckMaker"]["standardSpells"];
@@ -79,18 +82,37 @@ fetch("../data/locales/" + localStorage.getItem("language") + ".json")
 	document.getElementById("continuousItemHeader").textContent = locale["deckMaker"]["continuousItems"];
 	document.getElementById("equipableItemHeader").textContent = locale["deckMaker"]["equipableItems"];
 	
-	document.getElementById("deckMakerDeckButton").textContent = locale["deckMaker"]["deck"];
-	document.getElementById("deckMakerSearchButton").textContent = locale["deckMaker"]["search"];
+	// deck menu
+	document.getElementById("deckCreationPanelHeader").textContent = locale["deckMaker"]["deckMenu"]["title"];
+	document.getElementById("deckCardListHeader").textContent = locale["deckMaker"]["deckMenu"]["cardListTitle"];
+	document.getElementById("deckDetailsHeader").textContent = locale["deckMaker"]["deckMenu"]["detailsTitle"];
+	document.getElementById("recentCardsHeader").textContent = locale["deckMaker"]["deckMenu"]["recentCardsTitle"];
 	
 	document.getElementById("deckMakerDetailsName").textContent = locale["deckMaker"]["deckMenu"]["name"];
 	document.getElementById("deckMakerDetailsDescription").textContent = locale["deckMaker"]["deckMenu"]["description"];
 	document.getElementById("deckMakerDetailsPartner").textContent = locale["deckMaker"]["deckMenu"]["partner"];
 	
+	document.getElementById("deckMakerDetailsCardTotal").textContent = locale["deckMaker"]["deckMenu"]["cardTotal"];
 	document.getElementById("deckMakerDetailsUnitCount").textContent = locale["deckMaker"]["deckMenu"]["unitTotal"];
 	document.getElementById("deckMakerDetailsSpellCount").textContent = locale["deckMaker"]["deckMenu"]["spellTotal"];
 	document.getElementById("deckMakerDetailsItemCount").textContent = locale["deckMaker"]["deckMenu"]["itemTotal"];
 	
-	//search panel translation
+	document.getElementById("levelDistributionTitle").textContent = locale["deckMaker"]["deckMenu"]["levelDistribution"];
+	
+	document.getElementById("deckWarningsTitle").textContent = locale["deckMaker"]["deckMenu"]["warnings"]["title"];
+	document.getElementById("cardMinWarning").textContent = locale["deckMaker"]["deckMenu"]["warnings"]["cardMinimum"];
+	document.getElementById("cardMaxWarning").textContent = locale["deckMaker"]["deckMenu"]["warnings"]["cardMaximum"];
+	document.getElementById("unitWarning").textContent = locale["deckMaker"]["deckMenu"]["warnings"]["needsUnit"];
+	document.getElementById("tokenWarning").textContent = locale["deckMaker"]["deckMenu"]["warnings"]["noTokens"];
+	document.getElementById("partnerWarning").textContent = locale["deckMaker"]["deckMenu"]["warnings"]["noPartner"];
+	
+	// starting hand
+	document.getElementById("deckOptionsTitle").textContent = locale["deckMaker"]["deckMenu"]["options"];
+	document.getElementById("dotDeckExportBtn").textContent = locale["deckMaker"]["deckMenu"]["exportDeck"];
+	document.getElementById("deckMakerImportBtn").textContent = locale["deckMaker"]["deckMenu"]["importDeck"];
+	document.getElementById("startingHandGenBtn").textContent = locale["deckMaker"]["deckMenu"]["drawStartingHand"];
+	
+	//search panel
 	document.getElementById("cardSearchSearchBtn").textContent = locale["deckMaker"]["searchMenu"]["search"];
 	document.getElementById("cardSearchNameLabel").textContent = locale["deckMaker"]["searchMenu"]["cardName"];
 	document.getElementById("cardSearchIdLabel").textContent = locale["deckMaker"]["searchMenu"]["cardId"];
@@ -129,6 +151,10 @@ fetch("../data/locales/" + localStorage.getItem("language") + ".json")
 	document.getElementById("cardInfoVisibleHeader").textContent = locale["deckMaker"]["cardInfo"]["visibleCards"];
 	document.getElementById("cardInfoVisibleOnHeader").textContent = locale["deckMaker"]["cardInfo"]["visibleOn"];
 	document.getElementById("cardInfoToDeck").textContent = locale["deckMaker"]["cardInfo"]["toDeck"];
+	
+	// starting hand generator
+	document.getElementById("handGeneratorTitle").textContent = locale["deckMaker"]["startingHandGenerator"]["title"];
+	document.getElementById("regenerateStartingHand").textContent = locale["deckMaker"]["startingHandGenerator"]["redraw"];
 });
 
 //track shift key
@@ -159,7 +185,7 @@ function cardIdFromLink(imgLink) {
 let cardInfoCache = {};
 async function getCardInfo(cardId) {
 	if (!cardInfoCache[cardId]) {
-		const response = await fetch("https://crossuniverse.net/cardInfo/?lang=" + localStorage.getItem("language") + "&cardID=" + cardId, {cache: "force-cache"});
+		const response = await fetch("https://crossuniverse.net/cardInfo/?lang=" + (locale.warnings.includes("noCards")? "en" : locale.code) + "&cardID=" + cardId, {cache: "force-cache"});
 		cardInfoCache[cardId] = await response.json();
 	}
 	return cardInfoCache[cardId];
