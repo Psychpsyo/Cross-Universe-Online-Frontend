@@ -385,15 +385,14 @@ function syncDrop(cardArea) {
 }
 
 // ...to decks
-function syncDeckTop(deck) {
-	socket.send("[deckTop]" + deck.playerIndex);
+function syncDeckTop(deck, card) {
+	socket.send("[deckTop]" + deck.playerIndex + "|" + card.id);
 }
-function syncDeckBottom(deck) {
-	socket.send("[deckBottom]" + deck.playerIndex);
+function syncDeckBottom(deck, card) {
+	socket.send("[deckBottom]" + deck.playerIndex + "|" + card.id);
 }
-function syncDeckShuffleIn(deck) {
-	socket.send("[deckShuffle]" + deck.playerIndex);
-	
+function syncDeckShuffleIn(deck, card) {
+	socket.send("[deckShuffle]" + deck.playerIndex + "|" + card.id);
 }
 function syncDeckCancel() {
 	socket.send("[deckCancel]");
