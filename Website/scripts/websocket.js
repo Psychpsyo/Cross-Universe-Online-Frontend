@@ -241,8 +241,7 @@ function receiveMessage(e) {
 		}
 		case "quit": { // opponent quit the game (or crashed)
 			socket.close();
-			roomcode = "";
-			resetGame();
+			location.reload();
 			break;
 		}
 		case "revealCard": { // opponent revealed a presented card
