@@ -281,7 +281,15 @@ class pileCardArea extends cardArea {
 	}
 	
 	getLocalizedName() {
-		return locale["cardList" + this.name[0].toUpperCase() + this.name.substr(1)];
+		return locale["cardSelector"][this.name];
+	}
+	
+	returnAllToDeck() {
+		while (this.cards.length > 0) {
+			cardAreas["deck1"].dropToTop(this.cards.pop());
+		}
+		cardAreas["deck1"].shuffle();
+		this.updateDOM();
 	}
 }
 
@@ -295,17 +303,15 @@ class deckCardArea extends cardArea {
 		
 		// event handlers for dropping to deck
 		document.getElementById("deckTopBtn" + playerIndex).addEventListener("click", function() {
-			cardAreas["deck" + playerIndex].dropToTop();
-		});
+			this.dropToTop(this.droppingCard);
+		}.bind(this));
 		document.getElementById("deckBottomBtn" + playerIndex).addEventListener("click", function() {
-			cardAreas["deck" + playerIndex].dropToBottom();
-		});
+			this.dropToBottom(this.droppingCard);
+		}.bind(this));
 		document.getElementById("deckShuffleInBtn" + playerIndex).addEventListener("click", function() {
-			cardAreas["deck" + playerIndex].shuffleIn();
-		});
-		document.getElementById("deckCancelBtn" + playerIndex).addEventListener("click", function() {
-			cardAreas["deck" + playerIndex].cancelDrop();
-		});
+			this.shuffleIn(this.droppingCard);
+		}.bind(this));
+		document.getElementById("deckCancelBtn" + playerIndex).addEventListener("click", this.cancelDrop.bind(this));
 		
 		// event handlers for hovering the deck
 		document.getElementById(this.name).addEventListener("mouseover", function() {
@@ -366,29 +372,29 @@ class deckCardArea extends cardArea {
 	}
 	
 	getLocalizedName() {
-		return locale["cardListYourDeck"];
+		return locale["cardSelector"]["yourDeck"];
 	}
 	
 	// all the options for when a card is dropped to deck:
-	dropToTop() {
-		this.cards.push(this.droppingCard);
-		this.droppingCard.location?.dragFinish(this.droppingCard);
-		this.droppingCard.location = this;
+	dropToTop(card) {
+		this.cards.push(card);
+		card.location?.dragFinish(card);
+		card.location = this;
 		this.dropDone();
-		syncDeckTop(this);
+		syncDeckTop(this, card);
 	}
-	dropToBottom() {
-		this.cards.unshift(this.droppingCard);
-		this.droppingCard.location?.dragFinish(this.droppingCard);
-		this.droppingCard.location = this;
+	dropToBottom(card) {
+		this.cards.unshift(card);
+		card.location?.dragFinish(card);
+		card.location = this;
 		this.dropDone();
-		syncDeckBottom(this);
+		syncDeckBottom(this, card);
 	}
-	shuffleIn() {
-		this.cards.push(this.droppingCard);
-		this.droppingCard.location?.dragFinish(this.droppingCard);
-		this.droppingCard.location = this;
-		syncDeckShuffleIn(this);
+	shuffleIn(card) {
+		this.cards.push(card);
+		card.location?.dragFinish(card);
+		card.location = this;
+		syncDeckShuffleIn(this, card);
 		this.shuffle();
 		this.dropDone();
 	}
@@ -713,7 +719,7 @@ class tokenCardsArea extends cardArea {
 	}
 	
 	getLocalizedName() {
-		return locale["cardListTokens"];
+		return locale["cardSelector"]["tokens"];
 	}
 }
 

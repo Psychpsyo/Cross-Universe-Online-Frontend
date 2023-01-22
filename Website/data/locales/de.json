@@ -65,12 +65,15 @@
 	"actionsShowHand": "Handkarten Zeigen",
 	"actionsHideHand": "Handkarten Verbergen",
 	
-	"cardListTokens": "Tokens:",
-	"cardListYourDeck": "Dein Deck:",
-	"cardListDiscard0": "Ablagestapel deines Gegners:",
-	"cardListDiscard1": "Dein Ablagestapel:",
-	"cardListExile0": "Exil deines Gegners:",
-	"cardListExile1": "Dein Exil:",
+	"cardSelector": {
+		"tokens": "Tokens:",
+		"yourDeck": "Dein Deck:",
+		"discard0": "Ablagestapel deines Gegners:",
+		"discard1": "Dein Ablagestapel:",
+		"exile0": "Exil deines Gegners:",
+		"exile1": "Dein Exil:",
+		"returnAllToDeck": "Alle zurück ins Deck mischen"
+	},
 	
 	"fieldLabels": {
 		"unitZone": "Einheiten\nZone",

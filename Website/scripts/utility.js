@@ -50,16 +50,8 @@ function updateManaDisplay(player) {
 
 //opening a card selector
 function openCardSelect(cardArea, sortList=false) {
-	// open overlay
-	overlayBackdrop.style.display = "block";
-	
-	//set title
-	document.getElementById("cardSelectorTitle").textContent = cardArea.getLocalizedName();
-	
-	//clear selector
-	cardSelectorGrid.innerHTML = "";
-	
 	//add cards
+	cardSelectorGrid.innerHTML = "";
 	(sortList? [...cardArea.cards].sort(Card.sort) : cardArea.cards).forEach(function(card) {
 		cardImg = document.createElement("img");
 		cardImg.src = card.getImage();
@@ -81,11 +73,22 @@ function openCardSelect(cardArea, sortList=false) {
 	});
 	
 	//show selector
+	cardSelectorTitle.textContent = cardArea.getLocalizedName();
+	cardSelector.dataset.currentArea = cardArea.name;
+	cardSelectorReturnToDeck.style.display = (cardArea.name == "discard1" || cardArea.name == "exile1")? "block" : "none";
+	overlayBackdrop.style.display = "block";
 	cardSelector.style.display = "flex";
 	
 	//scroll to top
 	cardSelectorGrid.parentNode.scrollTop = 0;
 }
+
+// returns all cards from the card selector to your deck and closes the selector
+cardSelectorReturnToDeck.addEventListener("click", function() {
+	cardAreas[cardSelector.dataset.currentArea].returnAllToDeck();
+	cardSelector.style.display = "none";
+	overlayBackdrop.style.display = "none";
+});
 
 function doSelectStartingPlayer() {
 	if (youAre === 0 && cardAreas["field2"].isFaceDown() && cardAreas["field17"].isFaceDown()) {
