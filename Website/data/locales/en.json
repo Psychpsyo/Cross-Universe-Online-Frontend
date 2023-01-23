@@ -65,12 +65,15 @@
 	"actionsShowHand": "Reveal Hand",
 	"actionsHideHand": "Hide Hand",
 	
-	"cardListTokens": "Tokens:",
-	"cardListYourDeck": "Your Deck:",
-	"cardListDiscard0": "Opponent's Discard Pile:",
-	"cardListDiscard1": "Your Discard Pile:",
-	"cardListExile0": "Opponent's Exile Zone:",
-	"cardListExile1": "Your Exile Zone:",
+	"cardSelector": {
+		"tokens": "Tokens:",
+		"yourDeck": "Your Deck:",
+		"discard0": "Opponent's Discard Pile:",
+		"discard1": "Your Discard Pile:",
+		"exile0": "Opponent's Exile Zone:",
+		"exile1": "Your Exile Zone:",
+		"returnAllToDeck": "Return All to your Deck"
+	},
 	
 	"fieldLabels": {
 		"unitZone": "Unit\nZone",

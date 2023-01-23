@@ -62,6 +62,8 @@ fetch("../data/locales/" + localStorage.getItem("language") + ".json")
 	document.getElementById("lifeHalf").textContent = locale["actionsHalf"];
 	document.getElementById("showHandBtn").textContent = locale["actionsShowHand"];
 	
+	document.getElementById("cardSelectorReturnToDeck").textContent = locale["cardSelector"]["returnAllToDeck"];
+	
 	if (localStorage.getItem("fieldLabelToggle") == "true") {
 		document.querySelectorAll(".fieldLabelUnitZone").forEach(label => {
 			label.textContent = locale["fieldLabels"]["unitZone"];

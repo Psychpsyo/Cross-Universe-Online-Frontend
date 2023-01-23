@@ -281,7 +281,7 @@ class pileCardArea extends cardArea {
 	}
 	
 	getLocalizedName() {
-		return locale["cardList" + this.name[0].toUpperCase() + this.name.substr(1)];
+		return locale["cardSelector"][this.name];
 	}
 	
 	returnAllToDeck() {
@@ -372,7 +372,7 @@ class deckCardArea extends cardArea {
 	}
 	
 	getLocalizedName() {
-		return locale["cardListYourDeck"];
+		return locale["cardSelector"]["yourDeck"];
 	}
 	
 	// all the options for when a card is dropped to deck:
@@ -719,7 +719,7 @@ class tokenCardsArea extends cardArea {
 	}
 	
 	getLocalizedName() {
-		return locale["cardListTokens"];
+		return locale["cardSelector"]["tokens"];
 	}
 }
 
