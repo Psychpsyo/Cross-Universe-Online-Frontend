@@ -135,8 +135,12 @@ function receiveMessage(e) {
 		case "deckTop": { // opponent sent their held card to the top of a deck
 			let deck = cardAreas[cardAreaToLocal("deck" + message[0])];
 			let cardId = cardIdToLocal(message.substr(message.indexOf("|") + 1));
-			card = getCardById(cardId);
-			card.location?.grabCard(cardId);
+			let card = getCardById(cardId);
+			if (card != opponentHeldCard) {
+				card.location.grabCard(cardId);
+			} else {
+				opponentHeldCard = null;
+			}
 			
 			deck.cards.push(card);
 			card.location?.dragFinish(card);
@@ -148,8 +152,12 @@ function receiveMessage(e) {
 		case "deckBottom": { // opponent sent their held card to the bottom of a deck
 			let deck = cardAreas[cardAreaToLocal("deck" + message[0])];
 			let cardId = cardIdToLocal(message.substr(message.indexOf("|") + 1));
-			card = getCardById(cardId);
-			card.location?.grabCard(cardId);
+			let card = getCardById(cardId);
+			if (card != opponentHeldCard) {
+				card.location.grabCard(cardId);
+			} else {
+				opponentHeldCard = null;
+			}
 			
 			deck.cards.unshift(card);
 			card.location?.dragFinish(card);
@@ -161,8 +169,12 @@ function receiveMessage(e) {
 		case "deckShuffle": { // opponent shuffles their held card into a deck
 			let deck = cardAreas[cardAreaToLocal("deck" + message[0])];
 			let cardId = cardIdToLocal(message.substr(message.indexOf("|") + 1));
-			card = getCardById(cardId);
-			card.location?.grabCard(cardId);
+			let card = getCardById(cardId);
+			if (card != opponentHeldCard) {
+				card.location.grabCard(cardId);
+			} else {
+				opponentHeldCard = null;
+			}
 			
 			deck.cards.push(card); // the [deckOrder] message will arrive right after this one.
 			card.location?.dragFinish(card);
