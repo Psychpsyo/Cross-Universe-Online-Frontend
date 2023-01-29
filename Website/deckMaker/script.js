@@ -217,19 +217,21 @@ function searchCards(query) {
 	});
 }
 
-function fillCardResultGrid(cardList, grid) {
+async function fillCardResultGrid(cardList, grid) {
 	if (cardList.length > 0) {
 		while (document.getElementById("cardInfo" + grid + "Grid").firstChild) {
 			document.getElementById("cardInfo" + grid + "Grid").firstChild.remove();
 		}
 		
-		cardList.forEach(card => {
+		cardList.forEach(async cardId => {
 			let cardImg = document.createElement("img");
-			cardImg.src = linkFromCardId(card);
+			cardImg.src = linkFromCardId(cardId);
 			cardImg.addEventListener("click", function() {
 				showCardInfo(cardIdFromLink(this.src));
 			});
 			document.getElementById("cardInfo" + grid + "Grid").appendChild(cardImg);
+			let cardInfo = await getCardInfo(cardId);
+			cardImg.alt = cardInfo.name;
 		});
 		document.getElementById("cardInfo" + grid + "Area").style.display = "block";
 	}
@@ -274,6 +276,9 @@ async function showCardInfo(cardID) {
 	} else {
 		document.getElementById("cardInfoCardName").textContent = cardInfo.name;
 	}
+	
+	// set card image alt text
+	cardInfoCardImg.alt = locale["cardDetailsInfoString"].replace("{#LEVEL}", cardInfo.level == -1? locale["cardDetailsQuestionMark"] : cardInfo.level).replace("{#CARDTYPE}", locale[cardInfo.cardType + "CardDetailType"]) + ".\n" + locale["cardDetailsEffects"] + "\n" + cardInfo.effectsPlain;
 	
 	//fill in release date
 	if (cardInfo.releaseDate) {
@@ -443,6 +448,7 @@ async function addCardToDeck(cardId) {
 		cardImage.addEventListener("click", function() {
 			showCardInfo(cardIdFromLink(this.src));
 		});
+		cardImage.alt = card.name;
 		cardListElement.appendChild(cardImage);
 		
 		let btnDiv = document.createElement("div");
@@ -626,13 +632,15 @@ async function recalculateDeckStats() {
 	document.getElementById("dotDeckExportBtn").disabled = document.getElementById("deckMakerDetailsPartnerSelect").value == "";
 }
 
-function addRecentCard(cardId) {
+async function addRecentCard(cardId) {
 	let cardImg = document.createElement("img");
 	cardImg.src = linkFromCardId(cardId);
 	cardImg.addEventListener("click", function() {
 		addCardToDeck(cardIdFromLink(this.src));
 		this.remove();
 	});
+	let cardInfo = await getCardInfo(cardId);
+	cardImg.alt = cardInfo.name;
 	document.getElementById("recentCardsList").insertBefore(cardImg, document.getElementById("recentCardsList").firstChild);
 	
 	//start removing elements from the recent list once it gets too long

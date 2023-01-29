@@ -336,6 +336,7 @@
 	"cardDetailsAttack": "攻撃力：",
 	"cardDetailsDefense": "防御力：",
 	"cardDetailsTypes": "タイプ：",
+	"cardDetailsEffects": "効果：",
 	"cardDetailsInfoString": "Lv{#LEVEL}　{#CARDTYPE}",
 	"cardDetailsQuestionMark": "？",
 	"unitCardDetailType": "ユニット",

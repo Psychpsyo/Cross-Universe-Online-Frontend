@@ -336,6 +336,7 @@
 	"cardDetailsAttack": "Attack: ",
 	"cardDetailsDefense": "Defense: ",
 	"cardDetailsTypes": "Types: ",
+	"cardDetailsEffects": "Effects: ",
 	"cardDetailsInfoString": "Lv{#LEVEL} {#CARDTYPE}",
 	"cardDetailsQuestionMark": "?",
 	"unitCardDetailType": "Unit Card",
