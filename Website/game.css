@@ -331,6 +331,7 @@ img[src$="cardBackFrameP1.png"] {
 	left: 50%;
 	transform: translateX(-50%);
 	width: 95%;
+	z-index: 1;
 	
 	background-color: #0005;
 	border-radius: 1em;
