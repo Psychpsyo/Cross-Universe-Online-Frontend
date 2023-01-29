@@ -225,6 +225,7 @@ body {
 #field .card {
 	width: 85%;
 	margin: auto;
+	z-index: 1;
 }
 
 img[src$="cardBackFrameP0.png"], img[src$="cardBackFrameP1.png"] {
@@ -284,6 +285,7 @@ img[src$="cardBackFrameP1.png"] {
 	pointer-events: none;
 	filter: drop-shadow(0 0 .1em black) drop-shadow(0 0 .1em black) drop-shadow(0 0 .1em black) drop-shadow(0 0 .3em black);
 	font-size: 1.3em;
+	z-index: 2;
 }
 
 .exileHolder {
