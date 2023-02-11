@@ -198,6 +198,7 @@ function searchCards(query) {
 			list.firstChild.remove();
 		}
 	});
+	closeAllDeckMakerOverlays();
 	
 	fetch("https://crossuniverse.net/cardInfo", {method: "POST", body: JSON.stringify(query)})
 	.then(response => response.text())
@@ -370,13 +371,13 @@ cardInfoOverlayBlocker.addEventListener("click", function() {
 
 //clicking on parts of an individual card's info to search by those
 document.getElementById("cardInfoReleaseDate").addEventListener("click", function() {
-	searchCards({releaseDate: this.releaseDate});
+	searchCards({releaseDate: this.dataset.releaseDate});
 });
 document.getElementById("cardInfoIllustrator").addEventListener("click", function() {
-	searchCards({illustrator: this.illustrator});
+	searchCards({illustrator: this.dataset.illustrator});
 });
 document.getElementById("cardInfoIdea").addEventListener("click", function() {
-	searchCards({idea: this.idea});
+	searchCards({idea: this.dataset.idea});
 });
 
 //hotkeys
