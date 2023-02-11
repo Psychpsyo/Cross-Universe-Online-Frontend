@@ -393,8 +393,8 @@ document.addEventListener("keyup", function(e) {
 				closeAllDeckMakerOverlays();
 			} else {
 				closeAllDeckMakerOverlays();
-				document.getElementById("cardSearchPanel").style.display = "block";
-				document.getElementById("deckMakerOverlayBlocker").style.display = "block";
+				cardSearchPanel.style.display = "block";
+				mainOverlayBlocker.style.display = "block";
 			}
 			break;
 		}
@@ -405,8 +405,8 @@ document.addEventListener("keyup", function(e) {
 				closeAllDeckMakerOverlays();
 			} else {
 				closeAllDeckMakerOverlays();
-				document.getElementById("deckCreationPanel").style.display = "flex";
-				document.getElementById("deckMakerOverlayBlocker").style.display = "block";
+				deckCreationPanel.style.display = "flex";
+				mainOverlayBlocker.style.display = "block";
 			}
 			break;
 		}
