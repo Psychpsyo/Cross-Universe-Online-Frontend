@@ -18,6 +18,25 @@
 	top: 50%;
 	transform: translate(-50%, -50%);
 	
+	display: flex;
+	flex-direction: column;
+	gap: 1vh;
+	height: 80vh;
+}
+
+#mainLogoContainer {
+	flex-grow: 1;
+	position: relative;
+	max-height: 45vh;
+}
+
+#mainLogo {
+	width: 70vw;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	filter: drop-shadow(0 .2em 0.3em black);
 }
 
 #centerRoomCodeDiv {
@@ -27,6 +46,8 @@
 	border: 2px #eee solid;
 	border-radius: 1em;
 	padding: 1em;
+	margin: 0 auto;
+	width: fit-content;
 }
 
 #roomCodeRefresh {
@@ -45,6 +66,8 @@
 	border-radius: .5em;
 	padding: .2em .4em;
 	cursor: pointer;
+	margin: 0 auto;
+	width: fit-content;
 }
 
 .textSettingInputDiv {
